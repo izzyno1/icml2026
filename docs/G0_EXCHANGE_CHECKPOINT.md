@@ -23,9 +23,9 @@ Create `cache/tmp` when restoring into an empty clone. The wrappers expect the
 existing local runtime layout; Git does not include runtimes or machine config.
 For a separately configured Python, invoke the same Python scripts directly.
 
-Next external review: G0_02_pro_001, task G0_02_synthetic_001.
+Next external review: G0_02_pro_002, task G0_02_synthetic_002.
 After a real response, copy the unmodified JSON into exchange/inbox and run
-`tools/python-project.cmd tools/workflow.py import-pro --review G0_02_pro_001 --file exchange/inbox/G0_02_pro_001/review.json`.
+`tools/python-project.cmd tools/workflow.py import-pro --review G0_02_pro_002 --file exchange/inbox/G0_02_pro_002/review.json`.
 Before P2, inspect actual declared visible/read materials and independently check
 the synthetic marker against the local bytes. Do not substitute local simulation.
 Then create P2_catalog_002; preserve P2_catalog_001 as historical blocked.
