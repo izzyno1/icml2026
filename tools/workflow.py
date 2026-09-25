@@ -33,6 +33,8 @@ def main():
     fetch=sub.add_parser('fetch-one')
     fetch.add_argument('--paper',required=True);fetch.add_argument('--url',required=True)
     fetch.add_argument('--role',required=True)
+    metadata=sub.add_parser('fetch-metadata',help='One protected official metadata response, at most 1 MB')
+    metadata.add_argument('--task',required=True);metadata.add_argument('--url',required=True)
     a=ap.parse_args();root=a.root.resolve(strict=True)
     # All controlled scratch/cache writes stay on the project volume; no script activation.
     (root/'cache/tmp').mkdir(parents=True,exist_ok=True)
@@ -74,11 +76,18 @@ def main():
                     current=versions(root)
                     if receipt.get('status')!='pass' or any(receipt.get(k)!=current[k] for k in ('code_hash','rules_hash')):
                         raise Blocked('Offline acceptance does not match current implementation/rules')
-                    # A manually enqueued real task is required; no historical sample default.
-                    papers={r[0] for r in ledger.db.execute("SELECT DISTINCT paper FROM tasks WHERE kind='real'")}
-                    if a.paper not in papers:
-                        raise Blocked('Enqueue an explicit real-paper task before retrieval')
-                    value=Downloader(budget).fetch(a.url,a.paper,a.role)
+                    if a.command=='fetch-metadata':
+                        task=ledger.db.execute('SELECT * FROM tasks WHERE id=?',(a.task,)).fetchone()
+                        if not task or task['kind'] not in {'catalog','real'} or task['status'] not in {'pending','running'}:
+                            raise Blocked('Metadata retrieval needs an explicit active catalog/real task')
+                        ledger.check_context(task)
+                        value=Downloader(budget).fetch(a.url,task['paper'],'official_catalog',media='metadata')
+                    else:
+                        # A manually enqueued real task is required; no historical sample default.
+                        papers={r[0] for r in ledger.db.execute("SELECT DISTINCT paper FROM tasks WHERE kind='real'")}
+                        if a.paper not in papers:
+                            raise Blocked('Enqueue an explicit real-paper task before retrieval')
+                        value=Downloader(budget).fetch(a.url,a.paper,a.role)
             print(json.dumps(value,ensure_ascii=False,indent=2))
             return 0
     except (Blocked,OSError,ValueError,KeyError) as exc:
