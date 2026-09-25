@@ -37,5 +37,8 @@
   "tests/exchange_crash_worker.py",
   "reference/v2/icml2026_genealogy_v2/audit_helpers.py",
   "docs/PUBLIC_SOURCE_ROUTES.md",
-  "tests/test_mirrors.py"
+  "tests/test_mirrors.py",
+  "src/icml_audit/intake.py",
+  "tests/test_intake.py",
+  "docs/MANUAL_PDF_INTAKE.md"
 ]
