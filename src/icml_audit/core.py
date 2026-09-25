@@ -15,6 +15,16 @@ class Blocked(RuntimeError):
     pass
 
 
+SOURCE_ROLES = frozenset({'original_submission', 'camera_ready', 'revised', 'preprint',
+                          'prior_work', 'official_catalog',
+                          'current_attachment_unverified_role', 'synthetic'})
+
+
+def validate_source_role(role):
+    if role not in SOURCE_ROLES:
+        raise ValueError('Declare a valid version role')
+
+
 def canonical(obj):
     return json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')
 
@@ -168,10 +178,7 @@ class Ledger:
 
     def source(self, paper, role, url, path=None, final_url=None, read_scope='not_read', retrieved_at=None):
         safe_id(paper)
-        allowed_roles = {'original_submission', 'camera_ready', 'revised', 'prior_work',
-                         'official_catalog', 'current_attachment_unverified_role', 'synthetic'}
-        if role not in allowed_roles:
-            raise ValueError('Declare a valid version role')
+        validate_source_role(role)
         if not url.startswith('https://'):
             raise ValueError('Source URL must be HTTPS')
         p = confined(self.root, path) if path else None
