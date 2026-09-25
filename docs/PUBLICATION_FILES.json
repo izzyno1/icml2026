@@ -35,5 +35,7 @@
   "tests/test_setup_tools.py",
   "tests/crash_worker.py",
   "tests/exchange_crash_worker.py",
-  "reference/v2/icml2026_genealogy_v2/audit_helpers.py"
+  "reference/v2/icml2026_genealogy_v2/audit_helpers.py",
+  "docs/PUBLIC_SOURCE_ROUTES.md",
+  "tests/test_mirrors.py"
 ]
