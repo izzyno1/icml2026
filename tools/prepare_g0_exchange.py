@@ -6,7 +6,7 @@ sys.path.insert(0,str(ROOT/'src'))
 from icml_audit.core import Ledger,confined
 
 def main():
-    task='G0_02_synthetic_001'
+    task='G0_02_synthetic_002'
     path=confined(ROOT,'data/synthetic/g0_marker.txt')
     content=b'Line 1: This is synthetic evidence, not a real paper.\nLine 2: The marker is BLUE.\nLine 3: No prior work or novelty conclusion is supplied.\n'
     path.parent.mkdir(parents=True,exist_ok=True)
