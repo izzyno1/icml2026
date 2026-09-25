@@ -59,3 +59,20 @@ P2 remains incomplete: zero local paper PDFs and zero real paper loops. No real
 Pro review was exported. Next acquisition task is P2_J4wRLmh29t_acquire_004, only
 after a concrete available source/access change; prior blocked attempts remain.
 Next review is P2_J4wRLmh29t_screening_001, not exported. No P3/P4 work is authorized.
+
+## Later login and author-source follow-up
+
+Chrome login was subsequently confirmed. The guarded original-submission PDF
+request still returned HTTP 403. Browser navigation aborted and the subsequent
+page was blocked by browser URL policy; the user confirmed no download.
+
+[Tobias Wegel's ETH page](https://sml.inf.ethz.ch/group/tobiasw/) links the paper
+to arXiv, slides and its [author code repository](https://github.com/FedericoDiGennaro/Hedging-on-the-Frontier).
+The repository tree at `6329a100ef977b0a225d470ea93c5913cb5bcc30` was not truncated:
+14 entries, no PDF/TeX/archive files. Its README describes scripts and partial
+figure data, not a redistributed paper. No author code or dataset was executed
+or downloaded. This bounded inspection is not an exhaustive mirror search.
+
+Current next task is `P2_J4wRLmh29t_acquire_005`, after an actual file/access change.
+The new [manual intake](MANUAL_PDF_INTAKE.md) preserves unverified origin/version
+and does not turn a link or code repository into paper evidence.
