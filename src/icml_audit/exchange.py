@@ -22,8 +22,16 @@ when supplied and read; otherwise retain U and request specific missing material
 Return review.json using review.template.json, copying all binding values unchanged.
 Use the model name actually displayed, or unknown. Do not invent hashes or lease tokens.
 Evidence source_id and locator must match the supplied source and range labels.
+read_sources is a list of {"source_id":"...","ranges":["exact provided range label"]}.
+claims is a list of objects. Each evidence entry is
+{"source_id":"...","locator":"exact provided range label"}.
+visible_files is a list of manifest file paths (include materials paths, not just
+their basenames). candidate_sources, supplement_requests and limitations are lists.
 For each claim provide claim_id, kind, text, evidence, prior_comparison, conditions,
 uncertainty and suggested_label. New links belong only in candidate_sources.
+Use nonempty strings for text, prior_comparison, conditions and uncertainty; write
+unknown when necessary. suggested_label is U, L0, L1, L2 or L3. claim_id is a unique
+identifier using letters, digits, underscore or hyphen. Do not leave claims empty.
 This is AI screening, not human audit. No population inference from this pilot.
 Stop and request material if it is not visible. A synthetic package tests the protocol
 only and must not produce a judgment about any real paper.
