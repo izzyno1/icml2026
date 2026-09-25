@@ -14,18 +14,31 @@ import urllib.parse
 import urllib.request
 import urllib.robotparser
 import uuid
-from .core import Blocked, atomic_json, confined, file_hash
+from .core import Blocked, atomic_json, confined, file_hash, validate_source_role
 from .accounting import metadata_bytes
 
 HOSTS = {'icml.cc', 'openreview.net', 'api2.openreview.net', 'proceedings.mlr.press', 'arxiv.org', 'export.arxiv.org'}
+# Public download links observed on the publishers' pages, 2026-09-25.
+# These are preprint mirrors, not evidence of an original or camera-ready version.
+# Exact URLs deliberately do not authorize a whole hosting service or bulk fetches.
+REVIEWED_MIRROR_URLS = frozenset({
+    'https://pdfs.assets.alphaxiv.org/2605.30997v1.pdf',
+    'https://www.researchgate.net/publication/405562119_Hedging_on_the_Frontier_Learning_New_Tasks_with_Few_Samples/fulltext/6a1d06097076b91843485bd4/Hedging-on-the-Frontier-Learning-New-Tasks-with-Few-Samples.pdf',
+})
 UA = 'ICMLContributionAudit/0.2 (bounded personal research)'
 
 
 def validate_url(url):
     parsed = urllib.parse.urlsplit(url)
-    if parsed.scheme != 'https' or parsed.hostname not in HOSTS or parsed.username or parsed.password or parsed.port not in (None,443):
+    if parsed.scheme != 'https' or (parsed.hostname not in HOSTS and url not in REVIEWED_MIRROR_URLS) or parsed.username or parsed.password or parsed.port not in (None,443):
         raise Blocked('Unapproved scholarly HTTPS URL')
     return url
+
+
+def validate_download_role(url, role):
+    validate_source_role(role)
+    if url in REVIEWED_MIRROR_URLS and role not in {'preprint', 'prior_work'}:
+        raise Blocked('Reviewed preprint mirror cannot establish an official version role')
 
 
 def logical_size(root):
@@ -124,6 +137,7 @@ def recover_downloads(ledger):
             if receipt['reservation']!=row['id'] or receipt['path']!=expected:
                 raise Blocked('Download receipt identity/path mismatch')
             validate_url(receipt['url']);validate_url(receipt['final_url'])
+            validate_download_role(receipt['url'], receipt['role'])
             obj=confined(ledger.root,receipt['path'])
             if obj.stat().st_size!=receipt['bytes'] or file_hash(obj)!=receipt['sha256']:
                 raise Blocked('Recovered source hash conflict')
@@ -151,6 +165,7 @@ class Downloader:
     def fetch(self, url, paper, role, maximum=None, media='pdf'):
         """Production network path. Budget gate is evaluated before *any* socket request."""
         validate_url(url)
+        validate_download_role(url, role)
         if media not in {'pdf','metadata'}:
             raise Blocked('Unsupported media type')
         maximum = maximum or (1_000_000 if media=='metadata' else self.budget.policy['network']['default_document_max_bytes'])
@@ -190,6 +205,7 @@ class Downloader:
     def store_stream(self, response, url, paper, role, maximum, rid=None, path=None, media='pdf'):
         """Common streaming implementation; offline tests inject bounded synthetic streams."""
         validate_url(url)
+        validate_download_role(url, role)
         if media not in {'pdf','metadata'} or (media=='metadata' and maximum>1_000_000):
             raise Blocked('Unsupported media or metadata byte cap')
         if rid is None:
