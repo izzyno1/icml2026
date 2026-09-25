@@ -1,7 +1,7 @@
 # P2 access checkpoint — 2026-09-25
 
-P2 is incomplete. The real Pro synthetic roundtrip passed; paper acquisition is
-blocked by an external access boundary. No real paper loop, novelty assessment,
+P2 is incomplete. The real Pro synthetic roundtrip passed; protected full-text
+acquisition remains blocked after checking independent public sources. No real paper loop, novelty assessment,
 prior-work reading, independent AI review, human audit, or paper evidence graph
 has been completed.
 
@@ -23,6 +23,24 @@ was opened for the user; a subsequent check showed Chrome ERR_BLOCKED_BY_CLIENT.
 The protected OpenReview PDF request returned HTTP 403. The independent arXiv
 metadata attempt stopped at robots HTTP 406. No cookies/tokens were read or
 transferred, no CAPTCHA was solved by the agent, and no mirror bypass was used.
+The user subsequently confirmed that OpenReview registration/activation is still
+under review and authorized independent public sources. No further OpenReview
+login retry is required now. The official ICML individual page
+https://icml.cc/virtual/2026/poster/64858 was retrieved through the protected
+downloader: 85,564 bytes, SHA-256
+`b85ba2f9c63c45230aa5688d77a2a6bd9017dc799b98a1f250511a4f95cb3219`.
+Its title, authors and forum link were checked in raw HTML lines 2359-2473.
+This is metadata, not paper text.
+
+The arXiv bulk-access documentation recommends export.arxiv.org for programmatic
+access. A single protected request for the versioned preprint stopped at robots
+HTTP 406 before requesting the PDF. Author and institutional pages were inspected
+within the same ten candidates: several full-paper links still lead to arXiv;
+the OC-space institutional PDF instead redirects to Shibboleth login. Search
+leads and repository READMEs are not substituted for paper evidence. No author
+code, dataset, or third-party reproduction was run or downloaded. Discovery was
+bounded, not an exhaustive claim that no alternative source exists.
+
 Raw browser captures, source objects and failures remain local. The small public
 coverage record is `published/catalog/P2_catalog_002.json`.
 
@@ -50,14 +68,17 @@ Set-Location -LiteralPath 'C:\Projects\icml2026'
 & .\tools\python-project.cmd tools\workflow.py preflight
 ```
 
-Read local `reports/P2_access_checkpoint.json` and the latest GitHub sync receipt.
-Resolve the visible OpenReview verification/access issue before a new acquisition
-attempt; do not repeatedly retry the same blocked endpoint. Browser verification
-does not itself prove that local authenticated download is available. Recheck
-access without reading or exporting authentication material.
+Read local `reports/P2_public_sources_checkpoint.json` and the latest GitHub sync
+receipt. Continue with an actually available independent public paper source or
+user-provided evidence. OpenReview account approval is optional to that route;
+do not repeat a login request while the user is waiting for account review. Do not
+retry the same blocked source unchanged or export browser credentials. A preprint
+must retain its own version role rather than being called the original or final.
 
-Next task: P2_J4wRLmh29t_acquire_002. Next review (not exported):
+Next task: P2_J4wRLmh29t_acquire_003, only after a concrete new source/access change.
+Next review (not exported):
 P2_J4wRLmh29t_screening_001, only after actual located evidence and necessary
 prior work are available. Preserve blocked P2_catalog_001, P2_catalog_002 and
-P2_J4wRLmh29t_acquire_001. Do not mark P2 complete or expand beyond one paper
+P2_J4wRLmh29t_acquire_001 and _002. No code/rule changes were made in this follow-up;
+the 117-case report's bytes and binding were verified, not rerun. Do not mark P2 complete or expand beyond one paper
 before its full loop passes. P3/P4 remain unauthorized.
