@@ -11,6 +11,7 @@ from icml_audit.core import Ledger,Blocked,versions
 from icml_audit.storage import Budget,Downloader
 from icml_audit.accounting import ExternalAccounting
 from icml_audit.exchange import Exchange
+from icml_audit.intake import import_paper
 
 
 def main():
@@ -35,6 +36,12 @@ def main():
     fetch.add_argument('--role',required=True)
     metadata=sub.add_parser('fetch-metadata',help='One protected official metadata response, at most 1 MB')
     metadata.add_argument('--task',required=True);metadata.add_argument('--url',required=True)
+    intake=sub.add_parser('import-paper',help='Offline bounded copy of one user-supplied PDF; provenance remains unverified')
+    intake.add_argument('--task',required=True)
+    intake.add_argument('--file',required=True,help='Project-relative exchange/manual_intake/<name>.pdf')
+    intake.add_argument('--url',required=True,help='Exact public OpenReview URL for the task paper')
+    intake.add_argument('--declared-role',choices=['current_attachment_unverified_role','original_submission'],
+                        default='current_attachment_unverified_role',help='User declaration only; stored version remains unverified')
     a=ap.parse_args();root=a.root.resolve(strict=True)
     # All controlled scratch/cache writes stay on the project volume; no script activation.
     (root/'cache/tmp').mkdir(parents=True,exist_ok=True)
@@ -76,7 +83,9 @@ def main():
                     current=versions(root)
                     if receipt.get('status')!='pass' or any(receipt.get(k)!=current[k] for k in ('code_hash','rules_hash')):
                         raise Blocked('Offline acceptance does not match current implementation/rules')
-                    if a.command=='fetch-metadata':
+                    if a.command=='import-paper':
+                        value=import_paper(budget,a.task,a.file,a.url,a.declared_role)
+                    elif a.command=='fetch-metadata':
                         task=ledger.db.execute('SELECT * FROM tasks WHERE id=?',(a.task,)).fetchone()
                         if not task or task['kind'] not in {'catalog','real'} or task['status'] not in {'pending','running'}:
                             raise Blocked('Metadata retrieval needs an explicit active catalog/real task')
