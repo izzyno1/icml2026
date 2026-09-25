@@ -117,7 +117,10 @@ def recover_downloads(ledger):
             if receipt_path.stat().st_size>8192:
                 raise Blocked('Oversized download receipt')
             receipt=json.loads(receipt_path.read_text(encoding='utf-8'))
-            expected=str(Path('data/objects')/(receipt['sha256']+'.pdf'))
+            media=receipt.get('media','pdf')
+            if media not in {'pdf','metadata'}:
+                raise Blocked('Unknown recovered media type')
+            expected=str(Path('data/objects')/(receipt['sha256']+('.pdf' if media=='pdf' else '.txt')))
             if receipt['reservation']!=row['id'] or receipt['path']!=expected:
                 raise Blocked('Download receipt identity/path mismatch')
             validate_url(receipt['url']);validate_url(receipt['final_url'])
@@ -145,10 +148,14 @@ class Downloader:
         time.sleep(max(0, delay-(time.monotonic()-self.last_request)))
         self.last_request=time.monotonic()
 
-    def fetch(self, url, paper, role, maximum=None):
+    def fetch(self, url, paper, role, maximum=None, media='pdf'):
         """Production network path. Budget gate is evaluated before *any* socket request."""
         validate_url(url)
-        maximum = maximum or self.budget.policy['network']['default_document_max_bytes']
+        if media not in {'pdf','metadata'}:
+            raise Blocked('Unsupported media type')
+        maximum = maximum or (1_000_000 if media=='metadata' else self.budget.policy['network']['default_document_max_bytes'])
+        if media=='metadata' and maximum>1_000_000:
+            raise Blocked('Metadata response cap is 1 MB; use bounded pagination')
         rid, path = self.budget.reserve(maximum)
         try:
             parsed = urllib.parse.urlsplit(url)
@@ -170,18 +177,21 @@ class Downloader:
                 if exc.code != 404:
                     raise Blocked(f'Cannot verify provider robots policy: HTTP {exc.code}') from exc
             self.wait()
-            req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'application/pdf','Accept-Encoding':'identity'})
+            accept='application/pdf' if media=='pdf' else 'application/json,text/html,text/plain'
+            req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':accept,'Accept-Encoding':'identity'})
             with self.opener.open(req,timeout=self.budget.policy['network']['request_timeout_seconds']) as response:
                 if response.status != 200 or response.geturl() != url:
                     raise Blocked('Unexpected response status/URL')
-                return self.store_stream(response,url,paper,role,maximum,rid,path)
+                return self.store_stream(response,url,paper,role,maximum,rid,path,media)
         except BaseException:
             self.budget.finish(rid,'interrupted')
             raise
 
-    def store_stream(self, response, url, paper, role, maximum, rid=None, path=None):
+    def store_stream(self, response, url, paper, role, maximum, rid=None, path=None, media='pdf'):
         """Common streaming implementation; offline tests inject bounded synthetic streams."""
         validate_url(url)
+        if media not in {'pdf','metadata'} or (media=='metadata' and maximum>1_000_000):
+            raise Blocked('Unsupported media or metadata byte cap')
         if rid is None:
             rid,path=self.budget.reserve(maximum)
         written=0
@@ -222,10 +232,19 @@ class Downloader:
                 output.flush();os.fsync(output.fileno())
             if declared is not None and declared!=written:
                 raise Blocked('Content-Length mismatch/truncated transfer')
-            if not signature.lstrip().startswith(b'%PDF-'):
+            if media=='pdf' and not signature.lstrip().startswith(b'%PDF-'):
                 raise Blocked('Response is not PDF bytes; not a successful source')
+            if media=='metadata':
+                mime=response.headers.get('Content-Type','').split(';')[0].strip().lower()
+                if mime not in {'application/json','text/html','text/plain','application/xhtml+xml'}:
+                    raise Blocked('Unexpected metadata content type')
+                content=path.read_text(encoding='utf-8-sig')
+                if not content.strip() or '\x00' in content:
+                    raise Blocked('Empty or binary metadata')
+                if mime=='application/json':
+                    json.loads(content)
             digest=h.hexdigest()
-            dest=confined(self.root,Path('data/objects')/(digest+'.pdf'))
+            dest=confined(self.root,Path('data/objects')/(digest+('.pdf' if media=='pdf' else '.txt')))
             dest.parent.mkdir(parents=True,exist_ok=True)
             if dest.exists():
                 if file_hash(dest)!=digest:
@@ -239,7 +258,8 @@ class Downloader:
             receipt={'reservation':rid,'url':url,'final_url':url,'paper':paper,'role':role,
                      'retrieved_at':datetime.now(timezone.utc).isoformat(),
                      'sha256':digest,'bytes':written,'path':str(dest.relative_to(self.root)),
-                     'read_scope':'not_read','status':'bytes_saved_not_yet_registered'}
+                     'read_scope':'not_read','status':'bytes_saved_not_yet_registered','media':media,
+                     'content_type':response.headers.get('Content-Type')}
             atomic_json(confined(self.root,Path('cache/partials')/(rid+'.receipt.json')),receipt)
             sid=self.ledger.source(paper,role,url,receipt['path'],retrieved_at=receipt['retrieved_at'])
             self.budget.finish(rid,'complete')
