@@ -1,4 +1,12 @@
-# P2 access checkpoint — 2026-09-25
+# P2 public mirror checkpoint — 2026-09-25
+
+Latest follow-up: [public source routes](PUBLIC_SOURCE_ROUTES.md) records checked
+GitHub/Hugging Face catalogs, an older-year PDF archive, and two actual first-paper
+preprint links. Both returned 70-page PDFs through the web service; local protected
+retrieval stopped at alphaXiv robots denial and ResearchGate HTTP 403. No local
+PDF or full-text reading is claimed. Explicit preprint-role and exact-mirror-URL
+support passed the new full suite: 124 cases, 122 passed, 2 skipped, 0 failures.
+The older 117-case counts below describe the preceding implementation.
 
 P2 is incomplete. The real Pro synthetic roundtrip passed; protected full-text
 acquisition remains blocked after checking independent public sources. No real paper loop, novelty assessment,
@@ -68,17 +76,17 @@ Set-Location -LiteralPath 'C:\Projects\icml2026'
 & .\tools\python-project.cmd tools\workflow.py preflight
 ```
 
-Read local `reports/P2_public_sources_checkpoint.json` and the latest GitHub sync
+Read local `reports/P2_mirror_checkpoint.json` and the latest GitHub sync
 receipt. Continue with an actually available independent public paper source or
 user-provided evidence. OpenReview account approval is optional to that route;
 do not repeat a login request while the user is waiting for account review. Do not
 retry the same blocked source unchanged or export browser credentials. A preprint
 must retain its own version role rather than being called the original or final.
 
-Next task: P2_J4wRLmh29t_acquire_003, only after a concrete new source/access change.
+Next task: P2_J4wRLmh29t_acquire_004, only after a concrete new source/access change.
 Next review (not exported):
 P2_J4wRLmh29t_screening_001, only after actual located evidence and necessary
 prior work are available. Preserve blocked P2_catalog_001, P2_catalog_002 and
-P2_J4wRLmh29t_acquire_001 and _002. No code/rule changes were made in this follow-up;
-the 117-case report's bytes and binding were verified, not rerun. Do not mark P2 complete or expand beyond one paper
+P2_J4wRLmh29t_acquire_001, _002 and _003. This follow-up changed code but not rules;
+the full suite was rerun and the current 124-case receipt binds the new code. Do not mark P2 complete or expand beyond one paper
 before its full loop passes. P3/P4 remain unauthorized.
