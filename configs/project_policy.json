@@ -1,0 +1,78 @@
+{
+  "schema_version": "unified-1.0",
+  "kind": "project_policy_not_codex_config",
+  "operating_system": "windows_native_preferred",
+  "timezone": "America/Vancouver",
+  "corpus": {
+    "venue": "ICML 2026",
+    "track": "main_research",
+    "snapshot_at": null,
+    "verified_population_size": null,
+    "default_version_count": 1,
+    "prior_work_scope": "cross_venue_cross_year_on_demand"
+  },
+  "stages": {
+    "initial_batch_size": 10,
+    "capacity_pilot_size": 50,
+    "worker_concurrency": 1,
+    "max_concurrency_after_validation": 2,
+    "default_start": "setup_only",
+    "automatic_full_corpus_run": false
+  },
+  "storage": {
+    "unit": "decimal_GB",
+    "project_soft_budget_gb": 40,
+    "project_hard_budget_gb": 50,
+    "min_free_per_used_volume_gb": 30,
+    "pdf_cache_budget_gb": 12,
+    "page_image_cache_budget_gb": 3,
+    "archive_backend": "none",
+    "auto_delete_only_copy": false,
+    "allow_lossy_source_rewrite": false,
+    "download_weights": false,
+    "download_datasets": false,
+    "recursive_reference_download": false,
+    "preflight_reserve_bytes": 50000000
+  },
+  "dependencies": {
+    "setup": "stdlib_venv_git_codex",
+    "base_file": "requirements-project.in",
+    "no_default": [
+      "WSL",
+      "Docker",
+      "CUDA",
+      "Anaconda",
+      "GROBID server",
+      "embedding models",
+      "browser automation",
+      "third_party_MCP"
+    ]
+  },
+  "model": {
+    "provider": "existing_official_codex_login",
+    "name": null,
+    "paid_api_enabled": false
+  },
+  "network": {
+    "http_concurrency": 1,
+    "minimum_request_spacing_seconds": 5,
+    "max_attempts": 3,
+    "request_timeout_seconds": 60,
+    "default_document_max_bytes": 60000000,
+    "setup_response_max_bytes": 1000000,
+    "on_forbidden": "blocked_no_bypass"
+  },
+  "autonomy": {
+    "cloud_provisioning": false,
+    "third_party_plugin_installation": false,
+    "paper_repository_code_execution": false,
+    "global_config_overwrite": false
+  },
+  "statistics": {
+    "sample_10_role": "historical_purposive_pilot",
+    "sample_graph_role": "historical_illustration",
+    "unreviewed_model_labels": "exploratory_only",
+    "unknown_handling": "retain"
+  },
+  "enforcement_status": "specification_only_until_implemented_and_tested"
+}
