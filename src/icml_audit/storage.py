@@ -202,7 +202,7 @@ class Downloader:
             self.budget.finish(rid,'interrupted')
             raise
 
-    def store_stream(self, response, url, paper, role, maximum, rid=None, path=None, media='pdf'):
+    def store_stream(self, response, url, paper, role, maximum, rid=None, path=None, media='pdf', provenance=None):
         """Common streaming implementation; offline tests inject bounded synthetic streams."""
         validate_url(url)
         validate_download_role(url, role)
@@ -276,6 +276,8 @@ class Downloader:
                      'sha256':digest,'bytes':written,'path':str(dest.relative_to(self.root)),
                      'read_scope':'not_read','status':'bytes_saved_not_yet_registered','media':media,
                      'content_type':response.headers.get('Content-Type')}
+            if provenance is not None:
+                receipt['acquisition']=provenance
             atomic_json(confined(self.root,Path('cache/partials')/(rid+'.receipt.json')),receipt)
             sid=self.ledger.source(paper,role,url,receipt['path'],retrieved_at=receipt['retrieved_at'])
             self.budget.finish(rid,'complete')
