@@ -6,9 +6,17 @@ its original retained. Guarded import under acquire_005 succeeded: 65 pages,
 1,805,631 bytes, SHA-256
 3259e3abb5044c484af4af04d93705ba2c231e5a64b14c002ff7b6f089e1d570.
 Title/authors match; original/camera-ready certification is still unverified.
-The next work is screening_001, already exported. Do not rerun the historical
+Both screening_001 and independent_001 have actual Pro returns; scoped local
+fact checks and reconciliation are saved. The remaining work concerns source,
+version and proof-coverage gaps. Do not rerun the historical
 enqueue/import example below for this received file: acquire_005 is now accepted
 for acquisition only, and its original objective differs from the example.
+
+Manual intake is a contingency for an explicitly supplied file, not the planned
+per-paper collection workflow. A guarded API2 PDF probe on 2026-09-26 returned
+`ChallengeRequiredError`. The signed-in browser session and the unauthenticated
+local client are distinct. A bounded browser-to-local transfer is not yet
+implemented or verified; do not claim that copying login state is required.
 
 The following explains the preserved earlier access failure and intake contract.
 
@@ -75,4 +83,5 @@ verified previously. Do not weaken source-URL validation.
 Full offline suite: 135 discovered, 133 passed, 2 existing Windows symlink skips.
 Eleven new cases cover idempotency, invalid bytes/paths/source declarations, low
 space, changed context, input mutation, unverified original declarations and
-interrupted receipt recovery. No live manual import or real review is claimed.
+interrupted receipt recovery. That original test run did not establish a live
+import or real review; the later actual file and Pro receipts are described above.
