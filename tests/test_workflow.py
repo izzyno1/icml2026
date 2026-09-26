@@ -23,7 +23,8 @@ class Base(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(prefix='p1_',dir=ROOT/'cache/tmp')
         self.root=Path(self.temp.name)
         for name in ('AGENTS.md','PROJECT_SPEC.md','configs/project_policy.json','configs/rubric.json',
-                     'tools/workflow.py','reference/v2/icml2026_genealogy_v2/audit_helpers.py'):
+                     'tools/workflow.py','tools/openreview_session.py','Login-OpenReview-and-Fetch.cmd',
+                     'reference/v2/icml2026_genealogy_v2/audit_helpers.py'):
             dst=self.root/name;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/name,dst)
         shutil.copytree(ROOT/'src',self.root/'src')
         self.ledger=Ledger(self.root)
