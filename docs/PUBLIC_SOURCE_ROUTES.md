@@ -1,5 +1,21 @@
 # Public paper routes checked on 2026-09-25
 
+2026-09-26 update: one user-supplied ICML 2026 PDF is now registered and locally
+extracted (Hedging, 65 pages). Two prior works were acquired through the guarded
+PMLR downloader: Mansour 2021 main paper and supplement, and Mourtada 2023's
+two-page extended abstract. The latter is not its full proof paper.
+
+The official [mlresearch/v306 repository](https://github.com/mlresearch/v306)
+describes ICML 2026, but its complete inspected main tree
+`b3b1748fa2fac7ec916eb1dee8fee9f0691d9450` contains only README.md and a PR
+template, no PDFs. Another two requested main-track candidates (aIH1jyU37z and
+wsA8LgHU5U) were checked on their public spotlight forums; each guarded current
+PDF request returned HTTP 403 once. No unchanged retry or credential transfer.
+
+The sections below preserve the 2026-09-25 source investigation. Their earlier
+zero-PDF and not-exported statements are historical; current counts and real
+Pro exchange status are in [P2_CHECKPOINT.md](P2_CHECKPOINT.md).
+
 No complete ICML 2026 PDF collection was verified. Repository names, advertised
 counts and download instructions do not establish that PDF bytes are distributed.
 
