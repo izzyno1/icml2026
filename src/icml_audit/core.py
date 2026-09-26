@@ -180,6 +180,12 @@ class Ledger:
     def source(self, paper, role, url, path=None, final_url=None, read_scope='not_read', retrieved_at=None):
         safe_id(paper)
         validate_source_role(role)
+        # A reference may later be promoted to a target; enforce the same ten-target
+        # boundary at that transition without changing historical task identities.
+        if role != 'prior_work' and self.prior_only(paper) and self.db.execute(
+                "SELECT 1 FROM tasks WHERE paper=? AND kind='real'", (paper,)).fetchone():
+            if len(self.p2_target_papers() | {paper}) > 10:
+                raise Blocked('P2 boundary: at most ten real papers')
         if not url.startswith('https://'):
             raise ValueError('Source URL must be HTTPS')
         p = confined(self.root, path) if path else None
@@ -198,6 +204,19 @@ class Ledger:
             self.event('source_registered', {'source': sid, 'family': family})
         return sid
 
+    def prior_only(self, paper):
+        """Explicit reference-only identities; unknown/mixed identities stay targets.
+
+        A prior URL can be registered before acquisition (metadata_only). This is
+        a purpose declaration, never evidence that bytes exist or were read.
+        """
+        roles = {r[0] for r in self.db.execute('SELECT DISTINCT role FROM sources WHERE paper=?', (paper,))}
+        return roles == {'prior_work'}
+
+    def p2_target_papers(self):
+        return {r[0] for r in self.db.execute("SELECT DISTINCT paper FROM tasks WHERE kind='real'")
+                if not self.prior_only(r[0])}
+
     def enqueue(self, task, paper, stage, inputs, sources=(), kind='real', prompt='manual_evidence_review', model='not_invoked'):
         safe_id(task); safe_id(paper); safe_id(stage)
         if kind not in {'real', 'synthetic', 'catalog'}:
@@ -211,8 +230,8 @@ class Ledger:
                 if old['input_hash'] != ih or old['stage'] != stage or old['paper'] != paper or old['rules_hash'] != v['rules_hash'] or old['code_hash'] != v['code_hash'] or old['prompt_hash'] != digest(prompt) or old['model'] != model or old['kind'] != kind:
                     raise Blocked('Task identity/version conflict; use a new explicit task id')
                 return task
-            count = self.db.execute("SELECT COUNT(DISTINCT paper) FROM tasks WHERE kind='real' AND paper<>?", (paper,)).fetchone()[0]
-            if kind == 'real' and count >= 10:
+            targets = self.p2_target_papers()
+            if kind == 'real' and not self.prior_only(paper) and len(targets | {paper}) > 10:
                 raise Blocked('P2 boundary: at most ten real papers')
             self.db.execute('INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 (task, paper, stage, kind, canonical(packet).decode('utf-8'), ih, v['rules_hash'], v['code_hash'], digest(prompt), model, 'pending', None, None))
