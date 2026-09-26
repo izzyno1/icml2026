@@ -45,5 +45,10 @@
   "requirements.lock.txt",
   "published/evidence/P2_J4wRLmh29t.json",
   "published/papers/OR_J4wRLmh29t/screening_001.json",
-  "published/graphs/P2_J4wRLmh29t_partial.json"
+  "published/graphs/P2_J4wRLmh29t_partial.json",
+  "src/icml_audit/openreview_session.py",
+  "tools/openreview_session.py",
+  "Login-OpenReview-and-Fetch.cmd",
+  "tests/test_openreview_session.py",
+  "docs/OPENREVIEW_API_LOGIN.md"
 ]
