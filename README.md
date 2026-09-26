@@ -1,14 +1,16 @@
 # ICML 2026 贡献审计：GPT Pro、本地 Codex 与 GitHub 协作方案
 
-更新：2026-09-25。本文是当前协作主文档，说明任务归属、阶段交付、上传边界及同步办法。根目录原有 `AGENTS.md`、`PROJECT_SPEC.md` 和 `configs/project_policy.json` 继续约束实际工作；不另造冲突规则。
+更新：2026-09-26。本文是当前协作主文档，说明任务归属、阶段交付、上传边界及同步办法。根目录原有 `AGENTS.md`、`PROJECT_SPEC.md` 和 `configs/project_policy.json` 继续约束实际工作；不另造冲突规则。
 
-G0-02 已完成真实浏览器 Pro 合成往返。新增受限本地 PDF 接收入口后，完整离线验收
-135 项（133 通过、2 跳过）。P2 已核实官方范围、保存十条候选题录并核对一篇
-身份与公开录用决定，并保存会议官网单篇元数据。OpenReview 浏览器登录现已确认；
-本地受保护原稿下载仍返回 HTTP 403，浏览器下载未成功（用户确认）。已找到首篇
-的 alphaXiv、ResearchGate 预印本链接，但本地请求分别被 robots、HTTP 403 拒绝。
-真实论文闭环仍为零。`import-paper` 只接收指定目录内的单个 PDF，来源与版本
-保留待核验，不自动开始分析；见[本地接收说明](docs/MANUAL_PDF_INTAKE.md)。当前状态见
+G0-02 已完成真实浏览器 Pro 合成往返。2026-09-26 已接收用户保存的首篇真实 PDF：
+《Hedging on the Frontier》，65 页、1,805,631 字节，标题和作者已核对，全部页面已提取可定位文本。
+另通过受保护下载取得两篇前作的三个 PDF（含一份补充材料）；共三篇文献、四个 PDF，
+其中仅一篇是本轮 ICML 2026 主轨论文。原始投稿与定稿身份仍未核实。
+复用唯一 .venv 安装官方 PyMuPDF 1.28.2 Windows wheel 后，本次重新验收
+135 项：133 通过、2 跳过、0 失败。真实 Pro 初筛包已导出并通过浏览器提交，
+返回与验收状态以检查点为准。另两篇主轨候选的单次受保护下载均为 HTTP 403。
+真实论文闭环仍为零；人工审计未做。`import-paper` 保留来源与版本待核验状态，
+见[本地接收说明](docs/MANUAL_PDF_INTAKE.md)。当前状态见
 [P2 检查点](docs/P2_CHECKPOINT.md) 和 [脱敏状态](published/status.json)。
 GitHub/Hugging Face 题录与全文库的区别、适用年份和具体链接见
 [公开来源核查](docs/PUBLIC_SOURCE_ROUTES.md)。未验证 ICML 2026 全会 PDF 库。
@@ -259,7 +261,7 @@ Set-Location -LiteralPath 'C:\Projects\icml2026'
 | 5 | 用户 + 本地 Codex | 现有 GitHub 文档历史 + 已审阅源码清单 → 工程代码基线 | 明确 remote、上传范围及实际远端 SHA |
 | 6 | 本地 Codex + GPT Pro | 新 `P2_catalog_002` 与一篇真实论文 → 单篇闭环 | 全链条验收后才扩展到十篇 |
 
-GitHub 写入连接或 Pro 回传暂缺时，本地继续独立的代码、测试和文件准备；不能伪造远端成功或 Pro 已读。本轮 G0 已通过，P2 在实际访问边界落盘，下一任务为 `P2_J4wRLmh29t_acquire_005`，待实际文件或访问变化后新建。先解决正文取证，不能用候选题录代替论文闭环。
+GitHub 写入连接或 Pro 回传暂缺时，本地继续独立的代码、测试和文件准备；不能伪造远端成功或 Pro 已读。G0 已通过，首篇 acquire_005 已完成接收，`P2_J4wRLmh29t_screening_001` 已导出并提交真实 Pro。下一步从账本与 P2 检查点读取回传/核验进度，不重新认领旧获取任务。新下载的其他候选需分别登记，科学验收仍逐篇进行，不能用下载数量代替论文闭环。
 
 ## 10. 全程保持的限制
 
