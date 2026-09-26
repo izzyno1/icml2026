@@ -81,7 +81,8 @@ def versions(root):
     sources = sorted((root / 'src/icml_audit').glob('*.py'))
     if not sources:
         raise Blocked('Implementation version unavailable')
-    sources += [root / 'tools/workflow.py',
+    sources += [root / 'tools/workflow.py', root / 'tools/openreview_session.py',
+                root / 'Login-OpenReview-and-Fetch.cmd',
                 root / 'reference/v2/icml2026_genealogy_v2/audit_helpers.py']
     if any(not p.is_file() for p in sources):
         raise Blocked('Entrypoint or reused implementation version unavailable')
