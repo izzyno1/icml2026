@@ -43,5 +43,7 @@
   "docs/MANUAL_PDF_INTAKE.md",
   "requirements-project.in",
   "requirements.lock.txt",
-  "published/evidence/P2_J4wRLmh29t.json"
+  "published/evidence/P2_J4wRLmh29t.json",
+  "published/papers/OR_J4wRLmh29t/screening_001.json",
+  "published/graphs/P2_J4wRLmh29t_partial.json"
 ]
