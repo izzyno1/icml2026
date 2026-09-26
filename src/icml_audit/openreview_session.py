@@ -14,7 +14,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import warnings
-from .core import Ledger, Blocked, atomic_json, file_hash, versions
+from .core import Ledger, Blocked, atomic_json, file_hash, versions, confined
+from .reviewed_plan import load_reviewed_plan, validate_jobs
 from .storage import Budget, Downloader, NoRedirect, UA
 from .accounting import ExternalAccounting
 
@@ -75,14 +76,18 @@ def hidden_prompt(prompt):
 
 
 class ScopedBearer(urllib.request.BaseHandler):
-    """Attach the fresh session only to the four reviewed PDF URLs, never robots."""
+    """Attach the fresh session only to exact validated PDF jobs, never robots."""
     def __init__(self, value):
         if not isinstance(value,str) or not value or len(value)>16384 or not value.isascii() or any(c.isspace() for c in value):
             raise Blocked('Invalid authentication response')
         self._value = value
+        self.set_jobs(PILOT)
+
+    def set_jobs(self, jobs):
+        self._urls = frozenset(url for _,_,url in validate_jobs(jobs))
 
     def https_request(self, request):
-        if self._value and request.get_method()=='GET' and request.full_url in {job[2] for job in PILOT}:
+        if self._value and request.get_method()=='GET' and request.full_url in self._urls:
             request.add_unredirected_header('Authorization','Bearer '+self._value)
         return request
 
@@ -163,17 +168,26 @@ def check_baseline(root):
     return v
 
 
-def run(root, prompt=hidden_prompt, session_factory=LoginSession):
+def run(root, prompt=hidden_prompt, session_factory=LoginSession, reviewed_plan=None):
     root=Path(root).resolve(strict=True)
     v=check_baseline(root)
+    plan=None
+    if reviewed_plan is not None:
+        with Ledger(root) as ledger:
+            plan=load_reviewed_plan(ledger,reviewed_plan)
+    jobs=plan['jobs'] if plan else PILOT
     stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     receipt_path=root/'exchange/sync_receipts'/('openreview_api_session_'+stamp+'.json')
     receipt={'at':stamp,'status':'awaiting_private_local_login','authentication':'not_run',
-      'secret_persistence':False,'browser_credentials_accessed':False,'scope':'3 preselected papers, at most 4 PDF requests',
+      'secret_persistence':False,'browser_credentials_accessed':False,
+      'scope':f'{len({p for p,_,_ in jobs})} preselected papers, at most {len(jobs)} PDF requests',
+      'reviewed_plan':plan,
       'versions':v,'downloads':[],'paper_loops':0,'identity_version_reading':'separate_validation_required'}
     def gate():
         with Ledger(root) as ledger:
             check_baseline(root)
+            if plan and load_reviewed_plan(ledger,reviewed_plan)!=plan:
+                raise Blocked('Reviewed plan changed during authentication')
             return configured_budget(ledger).check(60_000_000)
     receipt['storage_before']=gate()
     atomic_json(receipt_path,receipt)
@@ -181,19 +195,25 @@ def run(root, prompt=hidden_prompt, session_factory=LoginSession):
     try:
         # No writer lock or running lease is held while the human enters credentials.
         bearer=session_factory(gate).login(prompt)
+        bearer.set_jobs(jobs)
         receipt.update(status='authenticated_fetching',authentication='success')
         atomic_json(receipt_path,receipt)
         with Ledger(root) as ledger:
+            if plan and load_reviewed_plan(ledger,reviewed_plan)!=plan:
+                raise Blocked('Reviewed plan changed during authentication')
             budget=configured_budget(ledger)
             downloader=Downloader(budget)
             downloader.last_request=time.monotonic()
             downloader.opener=urllib.request.build_opener(NoRedirect(),bearer)
-            for index,(paper,role,url) in enumerate(PILOT):
+            for index,(paper,role,url) in enumerate(jobs):
                 check_baseline(root)
+                if plan and load_reviewed_plan(ledger,reviewed_plan)!=plan:
+                    raise Blocked('Reviewed plan changed before transfer')
                 task='P2_api_'+stamp+'_'+str(index+1)
-                ledger.enqueue(task,'OR_'+paper,'acquisition',{'url':url,'role':role,'objective':'One authenticated guarded PDF acquisition; no paper-loop or version certification'},kind='real')
-                existing=ledger.db.execute('SELECT * FROM sources WHERE paper=? AND role=? AND url=? AND status=?',('OR_'+paper,role,url,'available')).fetchone()
-                if existing and existing['path'] and file_hash(root/existing['path'])==existing['sha256']:
+                dependencies=plan['metadata_source_ids'] if plan else []
+                ledger.enqueue(task,'OR_'+paper,'acquisition',{'url':url,'role':role,'plan_sha256':plan['sha256'] if plan else None,'objective':'One authenticated guarded PDF acquisition; no paper-loop or version certification'},dependencies,kind='real')
+                existing=ledger.db.execute('SELECT s.* FROM sources s JOIN current_sources c ON c.source=s.id WHERE s.paper=? AND s.role=? AND s.url=? AND s.status=?',('OR_'+paper,role,url,'available')).fetchone()
+                if existing and existing['path'] and file_hash(confined(root,existing['path']))==existing['sha256']:
                     item={'task_id':task,'url':url,'status':'existing_bytes_verified','source_id':existing['id'],'sha256':existing['sha256']}
                 else:
                     try:
@@ -226,15 +246,20 @@ def run(root, prompt=hidden_prompt, session_factory=LoginSession):
 
 
 def main(root):
-    parser=argparse.ArgumentParser(description='One private interactive API login; bounded 3-paper/4-PDF acquisition, no stored credentials or bulk corpus.')
-    parser.add_argument('--run',action='store_true',help='Prompt in your own console for hidden credentials, then execute the fixed pilot')
-    parser.add_argument('--plan',action='store_true',help='Show the fixed nonsecret URL plan; no network or login')
+    parser=argparse.ArgumentParser(description='One private interactive API login; default 3-paper/4-PDF pilot or a current catalog-bound plan of at most 10 papers/20 PDFs. No stored credentials or bulk corpus.')
+    parser.add_argument('--run',action='store_true',help='Prompt for hidden credentials and execute the bounded plan')
+    parser.add_argument('--plan',action='store_true',help='Validate and show the nonsecret URL plan; no network or login')
+    parser.add_argument('--reviewed-plan',help='Project-relative exchange/download_plans JSON bound to an accepted current catalog task')
     args=parser.parse_args()
-    if not args.run:
-        print(json.dumps({'papers':3,'maximum_pdf_requests':4,'jobs':[{'paper':p,'role':r,'url':u} for p,r,u in PILOT],'login':'private_console_only','live_authentication_tested':False},ensure_ascii=False,indent=2))
-        return 0
     try:
-        receipt,path=run(root)
+        if not args.run:
+            plan=None
+            if args.reviewed_plan:
+                with Ledger(root) as ledger:plan=load_reviewed_plan(ledger,args.reviewed_plan)
+            jobs=plan['jobs'] if plan else PILOT
+            print(json.dumps({'papers':len({p for p,_,_ in jobs}),'maximum_pdf_requests':len(jobs),'jobs':[{'paper':p,'role':r,'url':u} for p,r,u in jobs],'reviewed_plan':plan,'login':'private_console_only','network_requests':0},ensure_ascii=False,indent=2))
+            return 0
+        receipt,path=run(root,reviewed_plan=args.reviewed_plan)
         print(json.dumps({'status':receipt['status'],'authentication':receipt['authentication'],'pdf_results':len(receipt['downloads']),'receipt':str(path)},ensure_ascii=False,indent=2))
         return 0 if receipt['status']=='bounded_download_plan_finished' else 2
     except (Exception,KeyboardInterrupt) as exc:
