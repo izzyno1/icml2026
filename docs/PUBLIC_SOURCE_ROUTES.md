@@ -16,6 +16,40 @@ The sections below preserve the 2026-09-25 source investigation. Their earlier
 zero-PDF and not-exported statements are historical; current counts and real
 Pro exchange status are in [P2_CHECKPOINT.md](P2_CHECKPOINT.md).
 
+## Download diagnosis, 2026-09-26
+
+The official [OpenReview API2 client](https://github.com/openreview/openreview-py/blob/master/openreview/api/client.py)
+uses `/pdf?id=...` and `/attachment?id=...&name=...`; the documented
+[guest client](https://github.com/openreview/openreview-py/blob/master/examples.md)
+can read public resources without an account. This does not promise that every
+request from this machine will pass server verification.
+
+A single guarded request to `https://api2.openreview.net/pdf?id=J4wRLmh29t`
+passed the robots stage and received a 236-byte JSON response: HTTP 403,
+`ChallengeRequiredError`, with a browser challenge URL. No PDF was transferred.
+No credentials, cookies or session storage were accessed. The saved local receipt
+is `reports/P2_api_current_20260926.json`; it retains bounded public error details.
+There was no unchanged retry of the original-attachment API after this result.
+
+Chrome forum authentication was separately observed. Earlier attachment
+navigation returned `net::ERR_ABORTED`, followed by a URL-protocol policy error
+when inspecting the resulting page. The former can be a download handoff; neither
+observation alone proves that the HTTPS attachment itself was prohibited. The
+user had confirmed that the earlier attempt did not produce a saved file.
+
+Automatic bounded transfer from that browser session into local evidence is
+still unresolved. Do not frame repeated manual saves as the bulk solution.
+The three PMLR PDF objects were successfully downloaded by the existing protected
+client, so the limitation is source/session-specific, not a general inability to
+download PDFs. A supported transfer capability or provider-approved programmatic
+access is needed before claiming OpenReview batch retrieval works. This project
+does not authorize bypassing challenges or importing browser credentials.
+
+The author-hosted [Lecue–Rigollet 2014 paper](https://lecueguillaume.github.io/assets/AOS1190.pdf)
+is a verified candidate (14 PDF pages visible to web retrieval), but its exact URL
+is not in the current local allowlist. This is a project URL-review gap, not an
+HTTP access denial; no local PDF bytes or complete prior-work audit are claimed.
+
 No complete ICML 2026 PDF collection was verified. Repository names, advertised
 counts and download instructions do not establish that PDF bytes are distributed.
 
