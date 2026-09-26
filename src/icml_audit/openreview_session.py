@@ -44,6 +44,19 @@ def safe_failure(exc):
             exc.close()
         return {'status': 'blocked', 'http_status': exc.code, 'error': name}
     if isinstance(exc, Blocked):
+        known={
+            'Transfer total-time budget exceeded':'TransferTimeBudgetExceeded',
+            'Declared document exceeds limit':'DeclaredDocumentSizeLimit',
+            'Stream exceeds document limit':'StreamDocumentSizeLimit',
+            'Content-Length mismatch/truncated transfer':'TruncatedTransfer',
+            'Response is not PDF bytes; not a successful source':'NotPDF',
+            'Provider robots policy disallows retrieval':'RobotsDisallowed',
+            'Redirect needs separately verified source URL; no automatic follow':'RedirectNeedsSourceReview',
+            'MFA method needs a separately supported official flow':'UnsupportedMFA',
+            'Use your own interactive console; never pipe credentials':'PrivateConsoleRequired',
+        }
+        if str(exc) in known:
+            return {'status':'blocked','error':known[str(exc)]}
         return {'status': 'blocked', 'error': 'LocalGuardOrProtocolRejected'}
     if isinstance(exc, (EOFError, KeyboardInterrupt)):
         return {'status': 'cancelled', 'error': 'InteractiveLoginCancelled'}
