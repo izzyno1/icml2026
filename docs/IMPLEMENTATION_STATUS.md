@@ -3,8 +3,15 @@
 已实际导入一篇 ICML 2026 目标论文（65 页），并受保护下载两篇前作的三个 PDF。
 共三篇文献、四个 PDF；原始投稿/定稿认证仍未完成，真实闭环仍为零。
 本机标题/作者及关键页图已核对，正文按物理页和行定位；选定材料已生成不可变
-Pro 初筛包，通过已登录 Chrome 中实际选择的 Pro 模式提交。此项进度不是
-独立 AI 复核或人工审计。最新接收状态见 P2_CHECKPOINT.md 和 published/status.json。
+Pro 初筛包，通过已登录 Chrome 中实际选择的 Pro 模式提交。初筛实际返回 10 项，
+新对话复核实际返回 6 项；两份格式验收及有范围限制的本地事实核对/对照均已落盘。
+首轮意见未提供给新对话，但账号级记忆隔离无法验证。人工审计未做。
+最新接收状态见 P2_CHECKPOINT.md 和 published/status.json。
+
+首篇官方 API2 PDF 的受保护请求明确返回 HTTP 403 `ChallengeRequiredError`。
+这确定了本地访客请求的验证阻塞；不能据此声称论文不存在或每篇都需人工下载。
+Chrome 登录已确认，自动下载至受保护本地接收的通道尚未验证。此前 `ERR_ABORTED`
+与后续 URL 协议限制分开保存，不再笼统称附件 HTTPS 链接被工具禁止。
 
 仅补装 requirements-project.in 中的 PyMuPDF 1.28.2，官方 Windows wheel 有
 流式大小/时间/磁盘限制和 SHA 校验；在唯一 .venv 离线安装，无其他依赖。
