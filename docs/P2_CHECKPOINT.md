@@ -1,46 +1,34 @@
-# P2 检查点 — 2026-09-26
+# P2 检查点
 
-首篇模型初筛闭环已接收，P2整体尚未完成。当前12个PDF、9篇文献（3篇目标与6篇前作），
-十条题录是便利候选，不能用于推断会议总体。
+已完成两篇有明确限制的模型初筛闭环：Hedging 的65页当前附件、49页原稿和32页前作；
+Foundations 的23页当前附件和30页前作。第二篇两个真实 Pro 对话各返回7项分析，
+均经隔离导入、幂等核验和本地限定事实检查；贡献卡和局部证据图已生成。
+两篇论文整体新意均为 U；第二篇仅对同条件有限置换群平均子机制保留局部覆盖判断。
+人工审计/校准、完整证明认证和实验复现未做，账号记忆隔离未知。
 
-| 单元 | 实际状态 |
-| --- | --- |
-| Hedging 身份与版本 | 官方当前65页、原始投稿49页；定稿映射未知 |
-| 首篇真实 Pro | 历史10项初筛、独立6项复核；新146页文本包返回8项 |
-| 本地核对 | 8项限定原文/公式检查、版本对照、精确小例、三类证据边 |
-| 恢复 | 新进程复核、幂等导入/接收、SQLite完整性通过；桌面重启未测 |
-| 第二篇 Foundations | 23页正文及三篇前作30页已实际交Pro初筛 |
-| 第三篇 Learning to Theorize | 官方当前43页已取得并核对首页身份，尚未科学审读 |
-| 人类审计、校准、实验复现 | 未做 |
+十篇便利候选的官方主轨 spotlight 身份已分别核实；这不是会议总体。
+当前本地12个PDF、9篇文献，其中3篇是目标论文；第三篇43页已抽取，真实 Pro 审读尚未开始。
+第二篇原稿和所有正式 camera-ready 映射仍有缺口。四请求 API 下载已成功；扩展十篇清单
+已通过本地验证，联网扩展尚未执行。正文、数据库和原始交换包留本地。
 
-首篇记录 `P2_J4wRLmh29t_loop_001` 是有明确未知项的模型初筛闭环，不能解释成整篇
-数学正确、历史首创或L0/L3裁定。贡献卡记录零边际回退反例、覆盖数中间公式反例、
-尚未闭合的概率证明步骤和原稿/当前稿的适用范围差异；未把局部问题升级为全篇结论。
-[贡献卡](../published/papers/OR_J4wRLmh29t/full_text_001.json)；
-[证据图](../published/graphs/P2_J4wRLmh29t.md)。
+新增受目录/来源/代码版本约束的下载清单，最多10篇、20个精确PDF URL，失败即停。
+修正前作误计入十篇目标上限的问题；未知和混合身份仍保守计入目标，前作升级目标也受限。
+完整离线验收160项：158通过、2跳过、0失败，含四项实际中断恢复。
+代码变化后已用新短任务重核目录及两篇结果；历史任务和 Pro 哈希没有改写。
+P2继续逐篇推进，P3/P4未授权，未创建PR或合并main。
 
-首篇当前146页文本真实回传已通过格式检查。初次kind枚举错误原件留隔离区，Pro实际
-重发仅改8个kind字段，其余解析值逐项相同。第二次导入new_reception=false。
-原始返回、旧stale绑定与全部来源字节分别保留；未用本地模拟冒充。
+贡献卡：
 
-第二篇review_id `P2_aIH1jyU37z_screening_001`，task_id
-`P2_aIH1jyU37z_screening_task_001`；等待外部结果无running租约，返回后开本地短核验。
-前作包含Ravanbakhsh2020、Maron2019 ICML正文/补充、Barbero2022。
-Maron的ICML论文不等于其另一篇ICLR论文；后者及Bodnar2022等未取得部分仍记缺失。
-第二、三篇原始投稿尚未取得，当前附件不能冒充投稿时版本。
+- [Hedging](../published/papers/OR_J4wRLmh29t/full_text_001.json)
+- [Foundations](../published/papers/OR_aIH1jyU37z/full_text_001.json)
+- [十篇身份与来源](../published/catalog/P2_pilot10_identity.json)
 
-最新完整离线验收150项：148通过、2跳过、0失败，4项实际进程中断恢复。
-代码与规则未变，因此沿用同哈希验收回执并明确日期；论文事实核对另外记录。
-磁盘由preflight实测，包括Git、交换包、分片及登记外部存储；40/50GB和每卷30GB保留规则继续执行。
+当前新验收任务：`P2_J4wRLmh29t_loop_002`、`P2_aIH1jyU37z_loop_002`、`P2_catalog_pilot10_002`。
+旧 Pro 返回和卡片的旧代码绑定保留；新任务核查来源字节和事实范围，不冒充新 Pro 返回。
 
-```powershell
-Set-Location -LiteralPath 'C:\Projects\icml2026'
-& .\tools\python-project.cmd tools\workflow.py status
-& .\tools\python-project.cmd tools\workflow.py recover
-& .\tools\python-project.cmd tools\workflow.py preflight
-# 实际第二篇返回件保存后：
-& .\tools\python-project.cmd tools\workflow.py import-pro --review P2_aIH1jyU37z_screening_001 --file exchange/inbox/P2_aIH1jyU37z_screening_001_browser.json
-```
+恢复：`tools/python-project.cmd tools/workflow.py recover`，随后 `status`、`preflight`。
+待运行清单：`tools/python-project.cmd tools/openreview_session.py --plan --reviewed-plan exchange/download_plans/P2_pilot10_20260926_v2.json`。
+实际联网使用同参数加 `--run`，只在隐藏交互输入中临时使用凭据。
+下一 review_id：`P2_wsA8LgHU5U_screening_001`，尚未导出。
 
-原始PDF/SQLite/完整交换留本地。只同步审阅清单中的小型结果与代码，main未合并，未创建PR。
-是否已上传以本地远端逐字节读回回执为准。P3/P4未授权，不承诺关闭会话后继续运行。
+文档/代码同步以本地远端读回回执为准，运行态与完整证据不上传。
