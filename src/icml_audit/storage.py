@@ -22,6 +22,8 @@ HOSTS = {'icml.cc', 'openreview.net', 'api2.openreview.net', 'proceedings.mlr.pr
 # These are preprint mirrors, not evidence of an original or camera-ready version.
 # Exact URLs deliberately do not authorize a whole hosting service or bulk fetches.
 REVIEWED_MIRROR_URLS = frozenset({
+    # Author-hosted 2014 journal PDF, title/DOI checked against the first page.
+    'https://lecueguillaume.github.io/assets/AOS1190.pdf',
     'https://pdfs.assets.alphaxiv.org/2605.30997v1.pdf',
     'https://www.researchgate.net/publication/405562119_Hedging_on_the_Frontier_Learning_New_Tasks_with_Few_Samples/fulltext/6a1d06097076b91843485bd4/Hedging-on-the-Frontier-Learning-New-Tasks-with-Few-Samples.pdf',
 })
@@ -231,7 +233,10 @@ class Downloader:
                         raise Blocked('Transfer total-time budget exceeded')
                     self.budget.check()
                     # One sentinel byte detects a lying/unknown length, never written past cap.
-                    chunk=response.read(min(65536,maximum-written+1))
+                    # Reserve the full document first; check the actual disk before
+                    # and after each bounded 1 MiB read. Recounting all registered
+                    # development storage every 64 KiB dominated real transfers.
+                    chunk=response.read(min(1024*1024,maximum-written+1))
                     if not chunk:
                         break
                     if written+len(chunk)>maximum:
