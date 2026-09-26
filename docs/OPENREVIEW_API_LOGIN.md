@@ -1,3 +1,24 @@
+# OpenReview 有界下载入口
+
+默认入口仍为三篇四文件。`--reviewed-plan` 可读取本地已审阅清单，最多十篇/二十个
+当前或原始投稿链接。清单必须绑定当前已验收目录任务、报告和实际来源字节；认证前、
+认证后及每次传输前重核。精确 HTTPS GET 白名单限制 bearer，robots/其他路径/重定向
+均不带认证。密码与 bearer 不保存，不从浏览器、环境变量或认证文件取出。
+
+`tools/python-project.cmd tools/openreview_session.py --help`
+
+`tools/python-project.cmd tools/openreview_session.py --plan --reviewed-plan exchange/download_plans/P2_pilot10_20260926_v2.json`
+
+联网添加 `--run`，隐藏交互输入；先满足当前代码离线验收和40/50GB、每卷30GB保护。
+克隆仓库不包含本地清单和账本，须先建立已核实来源任务。已有字节复用只证明本地哈希，
+不声称重新下载或确认远端未变化。首次失败即停；旧分片和证据保留。目录变化需新计划。
+
+本轮160项离线测试通过158项、跳过2项；扩展清单的网络运行在本检查点尚未执行。
+三篇/四文件旧入口实际成功另有本地回执。前作不计入目标十篇：必须显式注册为仅
+`prior_work`；未知或混合角色仍计入，后续提升为目标也不得越界。该声明不等于取得或读过前作。
+
+## 历史入口记录
+
 # OpenReview API 登录与有限下载
 
 官方 [Using the API](https://docs.openreview.net/getting-started/using-the-api)
