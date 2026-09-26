@@ -1,3 +1,24 @@
+# Public paper routes — current API acquisition verified 2026-09-26
+
+The official [API authentication route](OPENREVIEW_API_LOGIN.md) succeeded after the
+user privately logged in locally. Three guarded PDF responses completed: Hedging's
+65-page current and 49-page original attachments, and a 23-page second target paper.
+A fourth transfer stopped locally and remains a partial file, not a completed PDF.
+The current attachment matches the earlier manually supplied bytes. Browser login and
+API login are distinct; previous anonymous ChallengeRequiredError was not a test of
+authenticated access. No browser credentials were copied or persisted.
+
+The exact author-hosted [Lecué–Rigollet 2014 PDF](https://lecueguillaume.github.io/assets/AOS1190.pdf)
+was reviewed, permitted for prior-work/preprint roles, and successfully acquired
+through the guarded downloader (14 pages). No host-wide exception was introduced.
+Current inventory: 7 PDF objects / 5 papers, including 2 ICML 2026 target papers.
+Publication-role verification and semantic reading remain separate from acquisition.
+No full-conference PDF collection or verified population size is claimed.
+
+The following is the preserved earlier route investigation. Statements such as
+“no authenticated result”, “original missing”, and “URL not allowed” describe the
+earlier state, superseded by the acquisition above.
+
 # Public paper routes checked on 2026-09-25
 
 2026-09-26 update: one user-supplied ICML 2026 PDF is now registered and locally
@@ -19,10 +40,11 @@ Pro exchange status are in [P2_CHECKPOINT.md](P2_CHECKPOINT.md).
 ## Download diagnosis, 2026-09-26
 
 The official [OpenReview API2 client](https://github.com/openreview/openreview-py/blob/master/openreview/api/client.py)
-uses `/pdf?id=...` and `/attachment?id=...&name=...`; the documented
-[guest client](https://github.com/openreview/openreview-py/blob/master/examples.md)
-can read public resources without an account. This does not promise that every
-request from this machine will pass server verification.
+uses `/pdf?id=...` and `/attachment?id=...&name=...`. Repository examples include
+a guest client, but the current [API documentation](https://docs.openreview.net/getting-started/using-the-api)
+explicitly requires an account and separate username/password authentication.
+The guest test did not test authenticated API access. The new
+[private local login entry](OPENREVIEW_API_LOGIN.md) is ready for that live test.
 
 A single guarded request to `https://api2.openreview.net/pdf?id=J4wRLmh29t`
 passed the robots stage and received a 236-byte JSON response: HTTP 403,
@@ -38,7 +60,8 @@ observation alone proves that the HTTPS attachment itself was prohibited. The
 user had confirmed that the earlier attempt did not produce a saved file.
 
 Automatic bounded transfer from that browser session into local evidence is
-still unresolved. Do not frame repeated manual saves as the bulk solution.
+still unresolved. The official authenticated API is the next supported test;
+do not frame repeated manual saves as the bulk solution.
 The three PMLR PDF objects were successfully downloaded by the existing protected
 client, so the limitation is source/session-specific, not a general inability to
 download PDFs. A supported transfer capability or provider-approved programmatic
