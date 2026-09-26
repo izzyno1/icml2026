@@ -22,6 +22,8 @@ HOSTS = {'icml.cc', 'openreview.net', 'api2.openreview.net', 'proceedings.mlr.pr
 # These are preprint mirrors, not evidence of an original or camera-ready version.
 # Exact URLs deliberately do not authorize a whole hosting service or bulk fetches.
 REVIEWED_MIRROR_URLS = frozenset({
+    # Author publication page explicitly links this ICLR 2026 prior, 2026-09-26.
+    'https://levilelis.github.io/papers/2026/macfarlaneBHL26.pdf',
     # NeurIPS publisher PDF linked from its official abstract record, 2026-09-26.
     'https://papers.nips.cc/paper_files/paper/2025/file/95738b4062a7fed00bb9db468475ae53-Paper-Conference.pdf',
     # Author-hosted 2014 journal PDF, title/DOI checked against the first page.
