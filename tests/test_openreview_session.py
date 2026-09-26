@@ -87,6 +87,8 @@ class OpenReviewSessionTests(Base):
         self.assertEqual(result['error'],'ChallengeRequiredError')
         self.assertNotIn(FAKE,json.dumps(result))
         self.assertNotIn(FAKE,json.dumps(safe_failure(RuntimeError(FAKE))))
+        self.assertEqual(safe_failure(Blocked('Transfer total-time budget exceeded'))['error'],'TransferTimeBudgetExceeded')
+        self.assertNotIn(FAKE,json.dumps(safe_failure(Blocked(FAKE))))
 
     def test_email_otp_flow_uses_only_official_challenge(self):
         client=LoginSession(Mock())
