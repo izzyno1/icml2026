@@ -40,5 +40,8 @@
   "tests/test_mirrors.py",
   "src/icml_audit/intake.py",
   "tests/test_intake.py",
-  "docs/MANUAL_PDF_INTAKE.md"
+  "docs/MANUAL_PDF_INTAKE.md",
+  "requirements-project.in",
+  "requirements.lock.txt",
+  "published/evidence/P2_J4wRLmh29t.json"
 ]
