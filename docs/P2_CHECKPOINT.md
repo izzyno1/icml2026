@@ -1,48 +1,46 @@
 # P2 检查点 — 2026-09-26
 
-P2 未完成：2 篇目标论文有正文，3 篇前作有文件，共 7 个 PDF、5 篇文献；
-真实论文闭环 0。十条题录是便利候选，总体数量未知。
+首篇模型初筛闭环已接收，P2整体尚未完成。当前12个PDF、9篇文献（3篇目标与6篇前作），
+十条题录是便利候选，不能用于推断会议总体。
 
-| 文件 | 页数 | 来源和范围 |
-| --- | --- | --- |
-| Hedging 当前附件 | 65 | 官方 API 成功；与用户保存件哈希相同；camera-ready 角色未知 |
-| Hedging 原始投稿 | 49 | 官方 originally_submitted_PDF；匿名版本，单独保留 |
-| Foundations of Equivariant Deep Learning | 23 | 官方 API 当前附件；标题/作者核对，尚未科学分析 |
-| Mansour 2021 正文 / 补充 | 12 / 4 | PMLR；首篇方法比较前作 |
-| Mourtada 2023 | 2 | PMLR 扩展摘要；完整证明未取得 |
-| Lecué–Rigollet 2014 | 14 | 作者站点期刊 PDF；题名/作者/DOI 核对 |
+| 单元 | 实际状态 |
+| --- | --- |
+| Hedging 身份与版本 | 官方当前65页、原始投稿49页；定稿映射未知 |
+| 首篇真实 Pro | 历史10项初筛、独立6项复核；新146页文本包返回8项 |
+| 本地核对 | 8项限定原文/公式检查、版本对照、精确小例、三类证据边 |
+| 恢复 | 新进程复核、幂等导入/接收、SQLite完整性通过；桌面重启未测 |
+| 第二篇 Foundations | 23页正文及三篇前作30页已实际交Pro初筛 |
+| 第三篇 Learning to Theorize | 官方当前43页已取得并核对首页身份，尚未科学审读 |
+| 人类审计、校准、实验复现 | 未做 |
 
-官方 API 登录已经实际成功。第四个 PDF 请求 wsA8LgHU5U 在传输中中断，保留
-3,014,656 字节分片，不计完整对象。旧日志仅记录 LocalGuardOrProtocolRejected，
-未确定具体保护原因。修正减少目录扫描开销并细分脱敏错误；没有关闭下载保护，
-修正版尚未重新请求该 PDF。无需把逐篇手动下载作为后续方案。
+首篇记录 `P2_J4wRLmh29t_loop_001` 是有明确未知项的模型初筛闭环，不能解释成整篇
+数学正确、历史首创或L0/L3裁定。贡献卡记录零边际回退反例、覆盖数中间公式反例、
+尚未闭合的概率证明步骤和原稿/当前稿的适用范围差异；未把局部问题升级为全篇结论。
+[贡献卡](../published/papers/OR_J4wRLmh29t/full_text_001.json)；
+[证据图](../published/graphs/P2_J4wRLmh29t.md)。
 
-首篇初筛 `screening_001` 真实返回 10 项，另一对话 `independent_001` 返回 6 项；
-格式/来源/定位检查、重复导入及限定本地原文和数学核对均已落盘。首轮意见未提供
-给第二轮，但账号记忆隔离未知。代码更新后两份旧包保留历史 stale，不改旧哈希。
-`P2_J4wRLmh29t_evidence_gaps_001` 已在当前基线重新核对旧字节和新增版本身份，
-这不是第三次 Pro 返回或全部科学结论重验。
+首篇当前146页文本真实回传已通过格式检查。初次kind枚举错误原件留隔离区，Pro实际
+重发仅改8个kind字段，其余解析值逐项相同。第二次导入new_reception=false。
+原始返回、旧stale绑定与全部来源字节分别保留；未用本地模拟冒充。
 
-新 `P2_J4wRLmh29t_supplement_001` 绑定提交
-`d9cdef0a9da95fa2efaafee628ff7337f8ab2705`，包含首篇当前65页、投稿49页、
-Lecué–Rigollet14页、Mansour12+4页、Mourtada2页，共146页可定位文本。
-实际传递和回传状态由 published/status.json 与本地浏览器回执记录；不能用导出成功
-冒充 Pro 已读。未提供原 PDF 像素和实验数据，Mourtada 全文及更广前作检索仍缺。
+第二篇review_id `P2_aIH1jyU37z_screening_001`，task_id
+`P2_aIH1jyU37z_screening_task_001`；等待外部结果无running租约，返回后开本地短核验。
+前作包含Ravanbakhsh2020、Maron2019 ICML正文/补充、Barbero2022。
+Maron的ICML论文不等于其另一篇ICLR论文；后者及Bodnar2022等未取得部分仍记缺失。
+第二、三篇原始投稿尚未取得，当前附件不能冒充投稿时版本。
 
-最新离线验收 **150 项：148 通过、2 跳过、0 失败**，含4项实际强制中断恢复。
-规则和代码绑定当前离线报告；AGENTS.md 未改。人类审计、人工校准和实验复现均未做。
-整体新意保持 U，不从便利样本推断总体；一篇真实闭环后才能扩展科学分析。
+最新完整离线验收150项：148通过、2跳过、0失败，4项实际进程中断恢复。
+代码与规则未变，因此沿用同哈希验收回执并明确日期；论文事实核对另外记录。
+磁盘由preflight实测，包括Git、交换包、分片及登记外部存储；40/50GB和每卷30GB保留规则继续执行。
 
 ```powershell
 Set-Location -LiteralPath 'C:\Projects\icml2026'
 & .\tools\python-project.cmd tools\workflow.py status
 & .\tools\python-project.cmd tools\workflow.py recover
 & .\tools\python-project.cmd tools\workflow.py preflight
-# 仅在实际返回件已保存后导入：
-& .\tools\python-project.cmd tools\workflow.py import-pro --review P2_J4wRLmh29t_supplement_001 --file exchange/inbox/P2_J4wRLmh29t_supplement_001_browser.json
+# 实际第二篇返回件保存后：
+& .\tools\python-project.cmd tools\workflow.py import-pro --review P2_aIH1jyU37z_screening_001 --file exchange/inbox/P2_aIH1jyU37z_screening_001_browser.json
 ```
 
-下一 task_id：`P2_J4wRLmh29t_supplement_task_001`，review_id：
-`P2_J4wRLmh29t_supplement_001`；等待外部审读不持 running 租约。返回后新开短验收。
-正文/SQLite/原始交换留本地。已授权功能分支同步，未请求创建 PR，main 未合并；
-只有远端读回回执证实的文件称已上传。P3/P4 未获授权。
+原始PDF/SQLite/完整交换留本地。只同步审阅清单中的小型结果与代码，main未合并，未创建PR。
+是否已上传以本地远端逐字节读回回执为准。P3/P4未授权，不承诺关闭会话后继续运行。
