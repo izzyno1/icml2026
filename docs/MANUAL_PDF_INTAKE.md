@@ -1,5 +1,17 @@
 # One-file local PDF intake
 
+**2026-09-26 update:** the user located the saved file in Downloads. The one
+matching named PDF was copied into the intake folder with size/hash checks and
+its original retained. Guarded import under acquire_005 succeeded: 65 pages,
+1,805,631 bytes, SHA-256
+3259e3abb5044c484af4af04d93705ba2c231e5a64b14c002ff7b6f089e1d570.
+Title/authors match; original/camera-ready certification is still unverified.
+The next work is screening_001, already exported. Do not rerun the historical
+enqueue/import example below for this received file: acquire_005 is now accepted
+for acquisition only, and its original objective differs from the example.
+
+The following explains the preserved earlier access failure and intake contract.
+
 Signed-in Chrome can open the forum. The guarded local original-PDF request
 returned HTTP 403. Browser attachment navigation aborted and the subsequent page
 was blocked by browser URL policy. The user confirmed no file was downloaded.
