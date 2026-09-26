@@ -20,5 +20,7 @@ flowchart TD
 
 [逐项版本与证明核对](../papers/OR_J4wRLmh29t/version_checks_001.json)记录来源 ID、
 物理页码、直接证据与推断。原始投稿和当前附件必须分别读取；正式定稿角色仍未知。
-此前两轮 Pro 使用选页；新的146页完整文本审读等待真实返回，尚无完整论文闭环。
+此前两轮 Pro 使用选页；新的146页文本已获真实 Pro 返回并完成8项限定本地核对。
+首篇模型初筛闭环已登记，完整证明认证、人工审计和整体P2仍未完成。
+[完整文本贡献卡](../papers/OR_J4wRLmh29t/full_text_001.json)。
 [来源和字节哈希](../evidence/P2_J4wRLmh29t.json)；[机器可读图](P2_J4wRLmh29t_partial.json)。
