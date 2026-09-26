@@ -11,6 +11,16 @@ URL = 'https://pdfs.assets.alphaxiv.org/2605.30997v1.pdf'
 
 
 class MirrorTests(Base):
+    def test_reviewed_author_prior_is_exact_and_cannot_claim_official_version(self):
+        url='https://lecueguillaume.github.io/assets/AOS1190.pdf'
+        self.assertEqual(validate_url(url),url)
+        with self.assertRaises(Blocked):validate_url(url.replace('AOS1190','other'))
+        with patch.object(self.down.opener,'open') as network:
+            with self.assertRaises(Blocked):self.down.fetch(url,'prior','original_submission')
+            network.assert_not_called()
+        receipt=self.down.store_stream(Stream(b'%PDF-reviewed-prior'),url,'prior','prior_work',100)
+        self.assertEqual(receipt['role'],'prior_work')
+
     def setUp(self):
         super().setUp()
         policy = json.loads((self.root/'configs/project_policy.json').read_text())
