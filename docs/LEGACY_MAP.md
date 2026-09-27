@@ -9,7 +9,7 @@
 | reference/v3/icml2026_longrun_v3/ | 任务包/交接卡、恢复与单写入规范、容量工具及12项离线测试 | 调度器是待实现要求；默认双版本容量情景被当前按需单版本政策替代 |
 | reference/CODEX_WINDOWS_LOW_STORAGE.md | 历史低存储、归档协议 | 价格是旧快照，采购前需再查；本轮不开户、不上传、不付费 |
 
-当前规则入口只有根AGENTS.md、PROJECT_SPEC.md、configs/project_policy.json和用户选定的阶段提示词。
+当前入口为README.md、原AGENTS.md、docs/PLAN_REVISION_20260927.md、PROJECT_SPEC.md、configs/project_policy.json及用户选定的阶段提示词。原AGENTS保持原字节，最新用户修订按PLAN_REVISION解释。
 旧代码和旧SHA256清单只验证原包范围，不应当作整合包校验器。本包新增MANIFEST.sha256.json才记录整合包的交付字节。
 旧Linux .sh不是Windows唯一入口，不因此要求装WSL；移植为Python或原生PowerShell。
 历史文件按原文保留（仅AGENTS更名）；其中以前宣称通过的浏览器测试不是本次Windows验证。本次测试记录另见reports/BUNDLE_VALIDATION.json。
