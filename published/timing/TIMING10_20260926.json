@@ -1,0 +1,73 @@
+{
+  "schema": "timing10-public-summary-1",
+  "task_id": "SCREEN_timing10_001",
+  "measurement_date": "2026-09-26",
+  "sample_role": "convenience capacity sample; all ten cached candidates; not representative",
+  "ordinary_completed": 10,
+  "ordinary_batches": 1,
+  "pro_completed": 3,
+  "new_external_calls": 4,
+  "measured_model_concurrency": 1,
+  "models": {
+    "ordinary": "GPT-5.6 Sol; Medium, 2 of 5",
+    "pro_ui": "Latest (6), Pro 5 of 5; exact backend unknown"
+  },
+  "wall_seconds": 2349.544726,
+  "one_time_seconds": 482.4682204999999,
+  "ordinary_recurring_batch_seconds": 176.65225980000002,
+  "ordinary_wait_seconds": 81.157,
+  "pro_recurring_mean_seconds": 563.4747485666667,
+  "pro_mean_nonwaiting_seconds": 82.67041523333336,
+  "pro_mean_wait_seconds": 480.8043333333333,
+  "pro_slow_observed_wait_seconds": 547.326,
+  "pro_material_pages": [
+    40,
+    17,
+    10
+  ],
+  "pro_text_only_images_missing": true,
+  "downloads_this_run": "none_cached",
+  "exact_tokens": null,
+  "web_pro_quota_remaining": null,
+  "old_results_counted_as_new_calls": false,
+  "concurrent_forecast": {
+    "measured": false,
+    "confidence_interval": false,
+    "method": "sequential ordinary phase plus groups of Pro calls; all per-paper non-wait handling retained",
+    "scenarios": [
+      {
+        "pro_concurrency_assumed": 4,
+        "abstract_papers_planning": 6000,
+        "main_pro_budget": 600,
+        "additional_nonoverlapping_audit": 100,
+        "total_pro": 700,
+        "continuous_hours_mean_wait": 69.0232980825463,
+        "continuous_hours_slow_observed_wait": 72.25699021217594,
+        "days_at_8h_mean_wait": 8.627912260318288,
+        "days_at_8h_slow_wait": 9.032123776521992
+      },
+      {
+        "pro_concurrency_assumed": 5,
+        "abstract_papers_planning": 6000,
+        "main_pro_budget": 600,
+        "additional_nonoverlapping_audit": 100,
+        "total_pro": 700,
+        "continuous_hours_mean_wait": 64.34881150847222,
+        "continuous_hours_slow_observed_wait": 66.93576521217592,
+        "days_at_8h_mean_wait": 8.043601438559028,
+        "days_at_8h_slow_wait": 8.36697065152199
+      }
+    ]
+  },
+  "unmeasured_costs": [
+    "complete official catalog and population verification",
+    "uncached full-text acquisition, failed downloads and human login time",
+    "key prior-work reading and version comparison",
+    "independent second review, human audit and calibration",
+    "proof certification and experiment reproduction",
+    "long-term quotas, rate limits, weekly variability and input-length tail",
+    "new_final_report_work"
+  ],
+  "raw_source_sha256": "dce0446f00a7fdc035dd39adbe22536729a6f435d557d3eba6a35b9d81b99174",
+  "raw_source_published": false
+}
