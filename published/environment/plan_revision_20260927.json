@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "at": "20260927T072014993552Z",
+  "code_hash": "0a5be4bca501266c1438603398ae61a6573bb1b04b5fc4011d9c6e19c51b4ea1",
+  "rules_hash": "a9edaaaec7ad3e67c2667f305e516de80d3873e6f9580c238ab2f00fb9a46f48",
+  "discovered": 160,
+  "passed": 158,
+  "skipped": 2,
+  "failed": 0,
+  "test_report_sha256": "86fc1186891373bdd0df40b22f082bf6b6b5506f8ce7d9e9d7cf5e8b4ec8d849",
+  "forced_process_kill_and_new_process_recovery_cases": 4,
+  "complete_codex_desktop_restart": "not_run",
+  "network_integration": "not_run",
+  "plan_version": "screening-600-v2-20260927",
+  "scope": "Existing offline Windows suite rerun after policy changes; no new browser/model tests",
+  "code_unchanged": true,
+  "protected_original_agents_sha256": "448cb575e8d812e3097c82d93c851fb9e90ba9081382685bd83ea030ae1e12cb",
+  "protected_files_unchanged": 148,
+  "scientific_validation": false,
+  "pro_parallel_validation": false
+}
