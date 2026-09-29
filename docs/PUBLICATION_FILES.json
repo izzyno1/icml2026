@@ -72,5 +72,7 @@
   "docs/prompts/PRO_SINGLE_PAPER_EXTRACTION_V2.md",
   "published/timing/TIMING10_20260926.json",
   "published/environment/plan_revision_20260927.json",
-  "published/plan_checkpoint_20260927.json"
+  "published/plan_checkpoint_20260927.json",
+  "published/reports/PRODUCTION100_20260927.md",
+  "published/timing/PRODUCTION100_20260927.json"
 ]
