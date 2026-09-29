@@ -1,0 +1,471 @@
+{
+  "schema_version": "production100-public-summary-1",
+  "task_id": "SCREEN_production100_v2_001",
+  "status": "completed_authorized_scope",
+  "completed_at_utc": "2026-09-27T10:20:22.290445+00:00",
+  "counts": {
+    "attempted": 100,
+    "valid": 100,
+    "missing": 0,
+    "pro_required": 69,
+    "skip_pro": 31,
+    "admitted": 20,
+    "candidate_not_reviewed_budget": 49,
+    "historical_reused": 0,
+    "new_browser_ordinary": 40,
+    "new_local_codex": 60,
+    "pro_completed": 20,
+    "pro_failed": 0,
+    "pro_waiting": 0,
+    "extra_audit_completed": 0,
+    "bounded_local_checks": 20
+  },
+  "source_scope": {
+    "partial_frame": 190,
+    "catalog_records_before_historical_exclusion": 200,
+    "seed": 202609270100,
+    "verified_full_population": null,
+    "planning_population": 6000,
+    "site_display_count_not_main_population": 6628,
+    "acceptance_categories": {
+      "spotlight": 55,
+      "regular": 45
+    },
+    "official_primary_area_counts": {
+      "Social Aspects": 12,
+      "Deep Learning": 36,
+      "Optimization": 4,
+      "Applications": 19,
+      "Reinforcement Learning": 8,
+      "Theory": 8,
+      "General Machine Learning": 10,
+      "Probabilistic Methods": 3
+    }
+  },
+  "models": {
+    "ordinary_browser": "GPT-5.6 Sol / High; four batches/40 papers before user amendment",
+    "ordinary_current_local_codex": "six batches/60 papers; exact backend identifier not exposed",
+    "pro": "Latest / 6 / Pro; UI effort5of5 is not concurrency",
+    "external_pro_dialogs": 20,
+    "exact_tokens": null,
+    "web_pro_remaining_quota": null,
+    "new_external_ordinary_calls_after_amendment": 0
+  },
+  "budget": {
+    "main_limit": 600,
+    "stage_admitted": 20,
+    "historical_conservative_reservation": 6,
+    "main_remaining": 574,
+    "additional_audit_limit": 100,
+    "additional_audit_completed": 0
+  },
+  "coverage": [
+    {
+      "official_primary_area": "Social Aspects",
+      "screened": 12,
+      "pro_admitted": 2
+    },
+    {
+      "official_primary_area": "Deep Learning",
+      "screened": 36,
+      "pro_admitted": 5
+    },
+    {
+      "official_primary_area": "Optimization",
+      "screened": 4,
+      "pro_admitted": 1
+    },
+    {
+      "official_primary_area": "Applications",
+      "screened": 19,
+      "pro_admitted": 4
+    },
+    {
+      "official_primary_area": "Reinforcement Learning",
+      "screened": 8,
+      "pro_admitted": 1
+    },
+    {
+      "official_primary_area": "Theory",
+      "screened": 8,
+      "pro_admitted": 3
+    },
+    {
+      "official_primary_area": "General Machine Learning",
+      "screened": 10,
+      "pro_admitted": 3
+    },
+    {
+      "official_primary_area": "Probabilistic Methods",
+      "screened": 3,
+      "pro_admitted": 1
+    }
+  ],
+  "academic_limits": {
+    "prior_work_actually_read": false,
+    "figures_supplied_to_pro": false,
+    "human_audit": false,
+    "experimental_reproduction": false,
+    "complete_proof_certification": false,
+    "labels_are_calibrated_population_rates": false
+  },
+  "pro_labels_selected_sample_only": {
+    "L2": 18,
+    "L1": 2
+  },
+  "timing": {
+    "first_instrumented_clock": "2026-09-27T07:49:08+00:00",
+    "wall_to_report_seconds_lower_bound": 8796.380448,
+    "initial_pre_clock_reads_seconds": null,
+    "startup_until_first_abstract_capture_seconds": 531.049,
+    "source_capture_active_seconds": 297.851,
+    "pro_dialog_peak_observed": 5,
+    "pro_waiting_intervals_sum_seconds": 13519.472,
+    "pro_waiting_intervals_union_seconds": 3525.737,
+    "pro_observed_pending_average": 3.834509494043373,
+    "official_api_seconds_including_login": 300.759135,
+    "api_authentication_seconds": 22.932456,
+    "api_download_bytes": 79307907,
+    "pdf_pages": 559,
+    "pro_pipeline_from_api_authenticated_to_last_bounded_check_seconds": 4036.245746,
+    "pro_pipeline_observed_reviews_per_hour": 17.838358844070243,
+    "unpartitioned_coordination_interface_and_report_seconds": 2532.8377680000012,
+    "interval_caution": "Intervals overlap. Return time is capture observation, not server compute end. Transfer-to-send includes preloaded queue time. Residual retains costs not independently timed.",
+    "wall_to_completion_seconds_lower_bound": 9074.290445,
+    "publication_time_excluded": true,
+    "local_ten_paper_batch_mean_minutes": 2.539363586111111
+  },
+  "forecast": {
+    "scope": "6000 abstracts +600 focus +100 nonoverlapping audit; planning quantities, not verified population",
+    "method": "once startup/auth +6000*mean captured author-abstract active time +600*observed local10 batch time +700*(complete20-paper API/material/Pro/bounded-check pipeline span/20)",
+    "scenarios": [
+      {
+        "name": "最快已观测本地批次情景",
+        "local_batch_minutes": 1.9721798166666666,
+        "known_processing_hours": 64.0811433238889,
+        "eight_hour_days": 8.010142915486112,
+        "with_separate_six_hour_closeout_budget_hours": 70.0811433238889,
+        "with_closeout_eight_hour_days": 8.760142915486112
+      },
+      {
+        "name": "本地批次均值情景",
+        "local_batch_minutes": 2.539363586111111,
+        "known_processing_hours": 69.75298101833334,
+        "eight_hour_days": 8.719122627291668,
+        "with_separate_six_hour_closeout_budget_hours": 75.75298101833334,
+        "with_closeout_eight_hour_days": 9.469122627291668
+      },
+      {
+        "name": "最慢已观测本地批次情景",
+        "local_batch_minutes": 3.4277443,
+        "known_processing_hours": 78.63678815722223,
+        "eight_hour_days": 9.829598519652778,
+        "with_separate_six_hour_closeout_budget_hours": 84.63678815722223,
+        "with_closeout_eight_hour_days": 10.579598519652778
+      }
+    ],
+    "requirements": {
+      "48": {
+        "hours_remaining_for_700_pro_after_local_work_and_six_hour_reserve": 11.48829706777778,
+        "required_pro_per_hour": 60.9315720049885,
+        "not_guaranteed": true,
+        "unmeasured_full_catalog_and_tail_costs_not_included": true
+      },
+      "72": {
+        "hours_remaining_for_700_pro_after_local_work_and_six_hour_reserve": 35.48829706777778,
+        "required_pro_per_hour": 19.724812342026333,
+        "not_guaranteed": true,
+        "unmeasured_full_catalog_and_tail_costs_not_included": true
+      }
+    },
+    "remaining_planning_scenario": {
+      "abstracts": 5900,
+      "pro": 674,
+      "hours_before_unmeasured_costs_and_final_closeout": 67.63560044125927
+    },
+    "unmeasured_costs": [
+      "full official catalog and withdrawal reconciliation",
+      "full-corpus navigation and material/length tails",
+      "quota/rate limits and future API session renewal",
+      "image-heavy/scanned material",
+      "full-scale final synthesis",
+      "human calibration/full prior-work audit/reproduction"
+    ],
+    "range_is_confidence_interval": false,
+    "ideal_overlap_not_credited": true,
+    "pipeline_includes_observed_UI_recovery_cost": true
+  },
+  "reviewed_full_text_bindings": [
+    {
+      "paper_id": "OR_PQaxfoEcRc",
+      "title": "Mechanistic Data Attribution: Tracing the Training Origins of Interpretable LLM Units",
+      "paper_url": "https://openreview.net/forum?id=PQaxfoEcRc",
+      "pdf_sha256": "3c60e3f706573e521bf9f269233d43d53a378edf6928efe8123d11cb1d824b52",
+      "pdf_bytes": 2472643,
+      "physical_pages": 33,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_MjPv4kRu3H",
+      "title": "A Call to Lagrangian Action: Learning Population Mechanics from Temporal Snapshots",
+      "paper_url": "https://openreview.net/forum?id=MjPv4kRu3H",
+      "pdf_sha256": "55fdcad6ac8c5c391fc950f6bc5290be9fe656a095f7b68f3d7cdb8c65d9c0fc",
+      "pdf_bytes": 14661415,
+      "physical_pages": 22,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_Z7rhDaBvBo",
+      "title": "Deep Flow Networks",
+      "paper_url": "https://openreview.net/forum?id=Z7rhDaBvBo",
+      "pdf_sha256": "1999614b131d5c4588224071423517a868a2ed8db55ceee866da2e29f53eac1e",
+      "pdf_bytes": 416007,
+      "physical_pages": 19,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_Qg9Jcy788i",
+      "title": "WBMM: Windowed Batch Matrix Multiplication for Efficient Large Receptive Field Convolution",
+      "paper_url": "https://openreview.net/forum?id=Qg9Jcy788i",
+      "pdf_sha256": "060216ec0f85d6dc9cba95d927a9656118b89cf9e3434c63fee83975cd319a26",
+      "pdf_bytes": 3199339,
+      "physical_pages": 23,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L1"
+    },
+    {
+      "paper_id": "OR_Z6j8S5LWmL",
+      "title": "Trainable Nonexpansive Denoisers for Contractive Image Reconstruction",
+      "paper_url": "https://openreview.net/forum?id=Z6j8S5LWmL",
+      "pdf_sha256": "e453d05f2b7285692d71b2e49f44e498ef2c7acb2ebff8f88662151cdd9ce9ba",
+      "pdf_bytes": 5165503,
+      "physical_pages": 14,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_fCPgAHIciE",
+      "title": "WaterSIC: Information-Theoretically (Near) Optimal \\Linear Layer Quantization",
+      "paper_url": "https://openreview.net/forum?id=fCPgAHIciE",
+      "pdf_sha256": "8a1489227aa2c88c484e34250152c30cc74e234f036a417fe24805a62fe1b3b8",
+      "pdf_bytes": 2593490,
+      "physical_pages": 32,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_dfN4HMZbc9",
+      "title": "When to Trust the Cheap Check: Weak and Strong Verification for Reasoning",
+      "paper_url": "https://openreview.net/forum?id=dfN4HMZbc9",
+      "pdf_sha256": "8757f408cb9a9bb891dfac7488860f1260dca0dbd3857e579dac255db58c296b",
+      "pdf_bytes": 3734248,
+      "physical_pages": 27,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_wrGSN9kAVD",
+      "title": "The Obfuscation Atlas: Mapping Where Honesty Emerges in RLVR with Deception Probes",
+      "paper_url": "https://openreview.net/forum?id=wrGSN9kAVD",
+      "pdf_sha256": "e2098880e15957dfc41c27fb2335b0ad0572a68294f2903500abd086792ac725",
+      "pdf_bytes": 648478,
+      "physical_pages": 30,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_1tbhBSXcyX",
+      "title": "RelayCaching: Accelerating LLM Collaboration via Decoding KV Cache Reuse",
+      "paper_url": "https://openreview.net/forum?id=1tbhBSXcyX",
+      "pdf_sha256": "d7c155cdd6fdda3661c3714b76594596f386b1a3ab67debbf9366e17f0982c35",
+      "pdf_bytes": 1803431,
+      "physical_pages": 20,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_NlSWKeQPoZ",
+      "title": "Transforming Weather Data from Pixel to Latent Space",
+      "paper_url": "https://openreview.net/forum?id=NlSWKeQPoZ",
+      "pdf_sha256": "66ed097c7608e833c4a74878e1ecd8782ae63911e5c1d5c1ed1ca57e4964066d",
+      "pdf_bytes": 8795705,
+      "physical_pages": 23,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_kpdyQ1GDRt",
+      "title": "The Relative Instability of Model Comparison with Cross-validation",
+      "paper_url": "https://openreview.net/forum?id=kpdyQ1GDRt",
+      "pdf_sha256": "65bfcacc4ba5efea98ddafb10926b9608d293a3d116b5c20239bebc328e3b892",
+      "pdf_bytes": 921075,
+      "physical_pages": 35,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_ihMB4kA2SQ",
+      "title": "Sharp Inequalities between Total Variation and Hellinger Distances for Gaussian Mixtures",
+      "paper_url": "https://openreview.net/forum?id=ihMB4kA2SQ",
+      "pdf_sha256": "f01c1ccf4e75c74ea4fdaa9803489b134ff46e8c3762d9011a1210b0190ed9f6",
+      "pdf_bytes": 438886,
+      "physical_pages": 27,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_DdU1o2ZvWi",
+      "title": "Are VLMs Seeing or Just Saying? Uncovering the Illusion of Visual Re-examination",
+      "paper_url": "https://openreview.net/forum?id=DdU1o2ZvWi",
+      "pdf_sha256": "813f0a95c0d0d7d8213bb4759071ca067d80aad24694511cb671092056adbc7f",
+      "pdf_bytes": 4685211,
+      "physical_pages": 27,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_VAXW59dyfk",
+      "title": "Optimal Decision-Making Based on Prediction Sets",
+      "paper_url": "https://openreview.net/forum?id=VAXW59dyfk",
+      "pdf_sha256": "388b9a9de8c125ba5c59445ca784775b4e439b681046a4fa95083dc7a9542b50",
+      "pdf_bytes": 585940,
+      "physical_pages": 23,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_NyPHOtsJfE",
+      "title": "Towards Sub-Second Molecular Docking as a Structural Primitive: A Quantized Consistency Diffusion Framework",
+      "paper_url": "https://openreview.net/forum?id=NyPHOtsJfE",
+      "pdf_sha256": "2d0eb0feec7b51b8b5f5959e7f63bb07f8f8365a4b6e62c7ed76d1181ba550e2",
+      "pdf_bytes": 2407668,
+      "physical_pages": 30,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L1"
+    },
+    {
+      "paper_id": "OR_cCwxV6rSXF",
+      "title": "FlashSketch: Sketch-Kernel Co-Design for Fast Sparse Sketching on GPUs",
+      "paper_url": "https://openreview.net/forum?id=cCwxV6rSXF",
+      "pdf_sha256": "5210c759cd380d24960f0cdb663b54dc97f57489c3235c1d742c8c74d06d1c28",
+      "pdf_bytes": 10982611,
+      "physical_pages": 51,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_HKzMnBX5B2",
+      "title": "On the Role of Computation in Reinforcement Learning",
+      "paper_url": "https://openreview.net/forum?id=HKzMnBX5B2",
+      "pdf_sha256": "f0073b73ca6542b51714e391c42a64e22a9f82974d4c76700e87ee71fc0dd8ca",
+      "pdf_bytes": 505664,
+      "physical_pages": 15,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_z31fdV4WRu",
+      "title": "Do We Need Adam? Surprisingly Strong and Sparse Reinforcement Learning with SGD in LLMs",
+      "paper_url": "https://openreview.net/forum?id=z31fdV4WRu",
+      "pdf_sha256": "ab40852e63d42bc716e13ca6334fe2712f988f0d7d28e705ac6ba014a53a2ed2",
+      "pdf_bytes": 537204,
+      "physical_pages": 18,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_PN8EiOzMuT",
+      "title": "Score-Repellent Monte Carlo: Toward Efficient Non-Markovian Sampler with Constant Memory in General State Spaces",
+      "paper_url": "https://openreview.net/forum?id=PN8EiOzMuT",
+      "pdf_sha256": "a27212695aa35373c1cf0d3e12d3fc18f3b81d73da10d77ad473c85feabff8dd",
+      "pdf_bytes": 4296924,
+      "physical_pages": 52,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    },
+    {
+      "paper_id": "OR_4hoiRJsmpp",
+      "title": "Learning Biophysical Models of Large-Scale Multineuronal Data To Enable Precise Neurostimulation",
+      "paper_url": "https://openreview.net/forum?id=4hoiRJsmpp",
+      "pdf_sha256": "4b6555c5cf3890d68c79885de8c5619416e92f5a499d27544f9f4c6d4b005940",
+      "pdf_bytes": 10456465,
+      "physical_pages": 38,
+      "version_role": "current_attachment_unverified_role",
+      "read_scope": "all_page_text_of_one_current_attachment",
+      "pro_rounds": 1,
+      "figures_supplied_to_pro": false,
+      "provisional_level": "L2"
+    }
+  ],
+  "evidence_integrity": {
+    "local_results_sha256": "7bc7b2bdd94f92c81ab7fc7e1d043302129329f124e45ccc8b2f138c8a699d22",
+    "local_completion_manifest_sha256": "e27f435584a980c29a3f48b9ba8c072a293c02f99c0f6a5a9c40e35f2220983b",
+    "frozen_selection_sha256": "fc8c9752fc31e63bfbbb3f6039fc06f7ce0696594fcbb667fec9bfbca432b9b0",
+    "rules_hash": "a9edaaaec7ad3e67c2667f305e516de80d3873e6f9580c238ab2f00fb9a46f48",
+    "code_hash": "0a5be4bca501266c1438603398ae61a6573bb1b04b5fc4011d9c6e19c51b4ea1",
+    "pro_prompt_sha256": "57d78b80c73238b0a61d10f04176af6e098b70c507e8856c952aeabbea6c499d",
+    "protected_historical_files_verified_unchanged": 94
+  },
+  "publication_scope": "summary_metrics_and_version_hashes_only",
+  "future_research_started": false
+}
