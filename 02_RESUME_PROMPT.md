@@ -1,5 +1,15 @@
 # ICML 2026 当前恢复入口
 
+## 当前任务恢复：剩余摘要，全文阶段暂不启动（2026-09-30）
+
+用户已明确取消后续浏览器Pro复筛。全部初筛先在当前本地Codex完成，之后全文阶段优先本地GPT-6 Astra；旧已完成评审不重做或改写。当前只处理官方6341快照中剩余5231篇作者摘要，每批十篇，首50验证后持续执行，每100检查点；暂不分配全文预算或启动抽查。
+
+当前方法：[本地研究方法修订](docs/LOCAL_RESEARCH_METHOD_20260930.md)；全文新提示：[v2.1](docs/prompts/LOCAL_FULL_TEXT_EXTRACTION_V2_1.md)。600重点预算保守剩474，历史数据和真实模型未知项保留。正在执行的本地任务为SCREEN_remaining_all_v2_001，恢复其RESUME.md与checkpoint.json，不按旧Pro等待状态重发。
+
+本次GitHub分支合并和旧PR关闭有明确用户授权；后续不自动发布、合并或扩大阶段。以下段落保留其历史时点含义。
+
+---
+
 唯一根目录为 C:\Projects\icml2026。先恢复事实与当前授权，不依赖旧聊天，不在备份或旧聊天目录重建。
 
 读取顺序：README.md → 原 AGENTS.md → docs/PLAN_REVISION_20260927.md → PROJECT_SPEC.md → configs/project_policy.json → configs/rubric.json → docs/IMPLEMENTATION_STATUS.md → 本地 NOW.md 与最近任务检查点。
