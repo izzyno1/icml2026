@@ -1,0 +1,8 @@
+# Install ONLY in the project .venv during the research build stage, after reviewing
+# resolved dependencies and Windows/Python wheel availability. This is NOT a lock.
+# Install the first two for parsing/validation; add openreview-py when API retrieval starts.
+PyMuPDF
+jsonschema
+openreview-py
+# Do not install the deprecated/unrelated "fitz" package in place of PyMuPDF.
+# Freeze actual resolved versions in requirements.lock.txt after tests pass.

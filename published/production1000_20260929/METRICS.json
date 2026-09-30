@@ -1,0 +1,75 @@
+{
+  "schema_version": "production1000-public-summary-1",
+  "task_id": "SCREEN_production1000_v2_001",
+  "completed_at": "2026-09-29T23:01:47.588830+00:00",
+  "counts": {
+    "attempted_new": 1000,
+    "carryover_candidate_pool": 49,
+    "extra_audit_started": 0,
+    "historical_convenience_abstracts_separate": 10,
+    "missing_new": 0,
+    "old_production_pro_completed_separate": 20,
+    "pro_required_new": 740,
+    "production_unique_abstract_total": 1100,
+    "skip_pro_new": 260,
+    "stage_admitted": 100,
+    "stage_pro_completed": 100,
+    "stage_pro_sent_unique": 100,
+    "stage_pro_waiting": 0,
+    "valid_new": 1000
+  },
+  "reading_dispositions": {
+    "read_with_specific_question": 61,
+    "stop_after_first_pass": 7,
+    "read_further": 32
+  },
+  "budget_remaining": 474,
+  "catalog_snapshot": 6341,
+  "remaining_unscreened_in_snapshot": 5231,
+  "timing": {
+    "first_observed_utc": "2026-09-29T09:56:44+00:00",
+    "abstract_batch_seconds_sum": 13605.046449,
+    "abstract_batch_seconds_mean": 136.05046449,
+    "abstract_work_span": {
+      "start": "2026-09-29T10:17:00.689492+00:00",
+      "end": "2026-09-29T14:18:07.152322+00:00",
+      "seconds": 14466.46283
+    },
+    "candidate_comparison_span": {
+      "start": "2026-09-29T14:20:58.359734+00:00",
+      "end": "2026-09-29T15:33:23.162851+00:00",
+      "seconds": 4344.803117
+    },
+    "external_observed_span": {
+      "start": "2026-09-29T15:38:21.019000+00:00",
+      "end": "2026-09-29T21:06:25.795000+00:00",
+      "seconds": 19684.776
+    },
+    "observed_peak_inflight": 5,
+    "external_span_average_inflight": 2.9414473906129284
+  },
+  "stage_wall_seconds_through_readback": 47169.684227,
+  "complete_depth_pipeline_per_hour": 13.380698041318356,
+  "material": {
+    "new_pdf_count": 100,
+    "new_pdf_bytes": 378529702,
+    "cache_hash_verifications": 156,
+    "figures_supplied_to_pro": false,
+    "version_role": "current_attachment_unverified_role"
+  },
+  "limits": {
+    "human_audit": false,
+    "experiment_reproduction": false,
+    "prior_exhaustive_review": false,
+    "model_backend_confirmed": false,
+    "reduced_capability_notice_returns": 62,
+    "population_innovation_rate_estimated": false
+  },
+  "integrity": {
+    "final_manifest_sha256": "4f2749c896737f939dbe336dd346937a68d91d7e3f45e038fad2cbb9e87b4582",
+    "sealed_delivery_manifest_sha256": "0495bdb43d2934e948acbac7d7d4a768dde3c89693cc401bf7e27ae7d6cd7965",
+    "abstract_prompt_sha256": "e4e1417ad6d5511df604420f414de7628d978fc8931301a93086d7ffbf9f1969",
+    "pro_prompt_sha256": "57d78b80c73238b0a61d10f04176af6e098b70c507e8856c952aeabbea6c499d"
+  },
+  "next_scope_authorized_20260930": "Complete remaining 5231 abstracts locally before any further full-text review; no second-stage reviews in this phase."
+}

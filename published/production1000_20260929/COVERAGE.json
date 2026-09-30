@@ -1,0 +1,78 @@
+{
+  "official_snapshot": 6341,
+  "new_abstracts": 1000,
+  "new_candidates": 740,
+  "skip": 260,
+  "pro_completed": 100,
+  "new_pro": 88,
+  "carried_pro": 12,
+  "budget_waiting": 689,
+  "remaining_priority": 474,
+  "official_areas": [
+    {
+      "area": "deep_learning",
+      "new_abstracts": 384,
+      "new_candidates": 292,
+      "new_skip": 92,
+      "new_pro_completed": 29,
+      "carried_pro_completed": 2
+    },
+    {
+      "area": "applications",
+      "new_abstracts": 234,
+      "new_candidates": 137,
+      "new_skip": 97,
+      "new_pro_completed": 18,
+      "carried_pro_completed": 2
+    },
+    {
+      "area": "general_machine_learning",
+      "new_abstracts": 114,
+      "new_candidates": 75,
+      "new_skip": 39,
+      "new_pro_completed": 15,
+      "carried_pro_completed": 1
+    },
+    {
+      "area": "social_aspects",
+      "new_abstracts": 81,
+      "new_candidates": 68,
+      "new_skip": 13,
+      "new_pro_completed": 5,
+      "carried_pro_completed": 3
+    },
+    {
+      "area": "theory",
+      "new_abstracts": 66,
+      "new_candidates": 66,
+      "new_skip": 0,
+      "new_pro_completed": 11,
+      "carried_pro_completed": 2
+    },
+    {
+      "area": "reinforcement_learning",
+      "new_abstracts": 52,
+      "new_candidates": 41,
+      "new_skip": 11,
+      "new_pro_completed": 1,
+      "carried_pro_completed": 1
+    },
+    {
+      "area": "optimization",
+      "new_abstracts": 41,
+      "new_candidates": 34,
+      "new_skip": 7,
+      "new_pro_completed": 6,
+      "carried_pro_completed": 1
+    },
+    {
+      "area": "probabilistic_methods",
+      "new_abstracts": 28,
+      "new_candidates": 27,
+      "new_skip": 1,
+      "new_pro_completed": 3,
+      "carried_pro_completed": 0
+    }
+  ],
+  "scope": "Only this authorized stage; not a measured population innovation rate."
+}
