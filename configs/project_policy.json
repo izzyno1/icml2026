@@ -1,15 +1,16 @@
 {
-  "schema_version": "unified-2.0-20260927",
+  "schema_version": "unified-2.1-local-20260930",
   "kind": "project_policy_not_codex_config",
   "operating_system": "windows_native_preferred",
   "timezone": "America/Vancouver",
   "corpus": {
     "venue": "ICML 2026",
     "track": "main_research",
-    "snapshot_at": null,
-    "verified_population_size": null,
+    "snapshot_at": "2026-09-29T10:16:43.380889+00:00",
+    "verified_population_size": 6341,
     "default_version_count": 1,
-    "prior_work_scope": "cross_venue_cross_year_on_demand"
+    "prior_work_scope": "cross_venue_cross_year_on_demand",
+    "snapshot_scope": "Accessible official main-track accepted metadata; not a live catalog"
   },
   "stages": {
     "initial_batch_size": 10,
@@ -50,10 +51,12 @@
     ]
   },
   "model": {
-    "provider": "existing_official_browser_login_for_external_screening",
+    "provider": "current_local_codex_task",
+    "requested_model": "gpt-6-astra",
     "name": null,
     "paid_api_enabled": false,
-    "local_codex_analysis_is_external_return": false
+    "local_codex_analysis_is_external_return": false,
+    "actual_backend_name_recording": "Record only observed identity; otherwise unknown"
   },
   "network": {
     "http_concurrency": 1,
@@ -76,28 +79,24 @@
     "unreviewed_model_labels": "exploratory_only",
     "unknown_handling": "retain"
   },
-  "enforcement_status": "partial: ledger and managed-download guards implemented; screening budgets, new schema intake and external parallel scheduling not automated or validated",
-  "plan_version": "screening-600-v2-20260927",
-  "policy_amendment": "docs/PLAN_REVISION_20260927.md",
+  "enforcement_status": "Partial core ledger/download enforcement. New research uses explicit per-stage authorizations, source-bound local inputs/outputs and single-writer checkpoints; no automatic all-stage scheduler.",
+  "plan_version": "screening-local-astra-20260930",
+  "policy_amendment": "docs/LOCAL_RESEARCH_METHOD_20260930.md",
   "external_models": {
+    "browser_pro_enabled": false,
+    "browser_ordinary_enabled": false,
     "ordinary_batch_size": 10,
     "ordinary_batch_concurrency": 1,
-    "pro_target_concurrency": 5,
-    "pro_fallback_concurrency": 4,
-    "pro_observed_concurrency": 1,
-    "pro_concurrency_validation": "not_run",
-    "browser_session": "existing_official_login",
-    "one_paper_per_pro_conversation": true,
-    "default_full_text_rounds": 1,
-    "waiting_state": "waiting_external",
-    "running_lease_during_external_wait": false,
+    "pro_target_concurrency": 0,
+    "pro_fallback_concurrency": 0,
     "precise_tokens": "unknown_until_observed",
-    "web_pro_remaining_quota": "unknown_until_observed",
-    "codex_quota_is_web_pro_quota": false
+    "retired_browser_protocol": "Historical completed records retained; do not resend or relabel",
+    "historical_production_peak_external_inflight": 5,
+    "historical_production_full_text_first_reviews_completed": 120
   },
   "screening": {
     "planning_population": 6000,
-    "population_verified": false,
+    "population_verified": true,
     "main_pro_budget": 600,
     "additional_nonoverlapping_audit_budget": 100,
     "max_distinct_pro_papers": 700,
@@ -113,7 +112,8 @@
       "audit_selected",
       "candidate_not_reviewed_budget",
       "skipped",
-      "material_missing"
+      "material_missing",
+      "candidate_not_reviewed_stage_scope"
     ],
     "skip_means_no_innovation": false,
     "missing_counts_as_valid_screening": false,
@@ -130,7 +130,11 @@
       "uncovered_strata"
     ],
     "pilot_counts_as_confirmatory_audit": false,
-    "prompt_changed_requires_separate_validation_sample": true
+    "prompt_changed_requires_separate_validation_sample": true,
+    "verified_snapshot_size": 6341,
+    "main_full_text_budget": 600,
+    "legacy_main_pro_budget_alias": true,
+    "legacy_pro_required_semantics": "PRO_REQUIRED means candidate for later local full-text assessment; it does not request browser Pro"
   },
   "first_pass": {
     "full_text_required": true,
@@ -141,7 +145,11 @@
     "target_only_prior_relations": "candidate",
     "text_only_image_coverage": "explicitly_missing",
     "old_import_pro_accepts_new_extraction_json": false,
-    "structure_check_is_fact_check": false
+    "structure_check_is_fact_check": false,
+    "executor": "local_codex_astra_preferred",
+    "external_browser_pro": false,
+    "independent_paper_input_output_record": true,
+    "default_full_text_rounds": 1
   },
   "schedule": {
     "target_continuously_operable_hours": 72,
@@ -149,7 +157,7 @@
     "eight_hour_days_are_not_72_hours": true,
     "target_is_guarantee": false,
     "background_after_session_close_promised": false,
-    "forecast_method": "sequential ordinary phase plus Pro groups; retain all per-paper non-wait handling",
+    "forecast_method": "Measure local abstract and local full-text stages separately; historical browser-Pro rates are not the local-Astra forecast",
     "forecast_is_parallel_measurement": false,
     "forecast_is_confidence_interval": false,
     "unmeasured_costs": [
@@ -163,13 +171,19 @@
     ]
   },
   "authorization": {
-    "current_turn": "plan_revision_validation_and_github_sync_only",
-    "new_research_calls_authorized_this_turn": false,
+    "current_turn": "remaining_snapshot_abstracts_only_plus_local_method_publication_branch_merge_and_pr_closure",
+    "new_research_calls_authorized_this_turn": true,
     "future_run_requires_explicit_start": true,
     "first_production_segment_max_papers": 50,
     "repeat_confirmation_per_10_after_start": false,
     "automatic_pr_or_merge": false,
-    "github_branch": "codex/g0-exchange"
+    "github_branch": "codex/g0-exchange",
+    "current_abstract_target_remaining_at_start": 5231,
+    "new_browser_pro_calls_authorized": false,
+    "new_full_text_reviews_authorized_this_phase": false,
+    "additional_random_audit_authorized_this_phase": false,
+    "github_explicit_merge_to_main_20260930": true,
+    "github_close_obsolete_pr1_20260930": true
   },
   "deliverables": {
     "abstract_index_target_chars_per_paper": [
@@ -199,7 +213,25 @@
       "path": "docs/prompts/PRO_SINGLE_PAPER_EXTRACTION_V2.md",
       "version": "pro-single-paper-v2-20260927",
       "sha256": "57d78b80c73238b0a61d10f04176af6e098b70c507e8856c952aeabbea6c499d",
+      "new_version_model_quality_validated": false,
+      "historical_only": true
+    },
+    "full_text": {
+      "path": "docs/prompts/LOCAL_FULL_TEXT_EXTRACTION_V2_1.md",
+      "version": "local-single-paper-v2.1-20260930",
+      "sha256": "cf3fcbd15d89c72931d9082631fd01c0d0869196603760f4c7952326485f9fc5",
       "new_version_model_quality_validated": false
-    }
+    },
+    "default_full_text": "full_text"
+  },
+  "local_models": {
+    "abstract_executor": "current_local_codex_task",
+    "full_text_executor": "current_local_codex_task",
+    "requested_full_text_model": "gpt-6-astra",
+    "single_writer": true,
+    "batch_size": 10,
+    "parallel_agents_default": false,
+    "one_paper_one_version_one_initial_review": true,
+    "scope_order": "Finish full abstract screening first; full-text phase not started in current authorization"
   }
 }
