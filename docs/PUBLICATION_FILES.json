@@ -101,5 +101,9 @@
   "published/production1000_20260929/reviews_091_100.md",
   "published/production1000_20260929/OPERATIONS.md",
   "published/production1000_20260929/METRICS.json",
-  "published/production1000_20260929/README.md"
+  "published/production1000_20260929/README.md",
+  "docs/history/before_local_method_20260930/PROJECT_SPEC.md",
+  "docs/history/before_local_method_20260930/configs/project_policy.json",
+  "docs/prompts/LOCAL_FULL_TEXT_EXTRACTION_V2_1.md",
+  "docs/LOCAL_RESEARCH_METHOD_20260930.md"
 ]
